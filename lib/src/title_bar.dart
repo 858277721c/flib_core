@@ -95,9 +95,9 @@ class FTitleImage extends StatelessWidget {
     double height,
   })  : assert(image != null),
         this.width =
-            width ?? (image.width ?? FRes.dimens().widthTitleBarItemImage),
+            image.width ?? (width ?? FRes.dimens().widthTitleBarItemImage),
         this.height =
-            height ?? (image.height ?? FRes.dimens().heightTitleBarItemImage);
+            image.height ?? (height ?? FRes.dimens().heightTitleBarItemImage);
 
   @override
   Widget build(BuildContext context) {
