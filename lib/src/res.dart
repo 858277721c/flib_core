@@ -1,4 +1,4 @@
-import 'package:flutter/painting.dart';
+import 'package:flutter/material.dart';
 
 class FRes {
   static FRes _instance;
@@ -67,6 +67,14 @@ class FResColors {
   /// 分割线颜色
   final Color divider;
 
+  //---------- titleBar ----------
+
+  /// 标题栏背景色
+  final Color bgTitleBar;
+
+  /// 标题栏文字颜色
+  final Color textTitleBar;
+
   FResColors({
     this.mainColor,
     Color mainColorPressed,
@@ -79,6 +87,9 @@ class FResColors {
     Color textTabSelected,
     Color shadowText,
     Color divider,
+    //---------- titleBar ----------
+    Color bgTitleBar,
+    Color textTitleBar,
   })  : assert(mainColor != null),
         this.mainColorPressed = mainColorPressed ?? mainColor,
         this.bgPage = bgPage ?? Color(0xFFF7F7F7),
@@ -89,7 +100,9 @@ class FResColors {
         this.textTabNormal = textTabNormal ?? Color(0xFF999999),
         this.textTabSelected = textTabSelected ?? mainColor,
         this.shadowText = shadowText ?? Color(0xFF333333),
-        this.divider = divider ?? Color(0xFFE7E7F1);
+        this.divider = divider ?? Color(0xFFE7E7F1),
+        this.bgTitleBar = bgTitleBar ?? mainColor,
+        this.textTitleBar = textTitleBar ?? Colors.white;
 }
 
 class FResDimens {
@@ -102,9 +115,36 @@ class FResDimens {
   /// 边框粗细
   final double widthDivider;
 
+  //---------- titleBar ----------
+
+  /// 标题栏高度
+  final double heightTitleBar;
+
+  /// 标题栏文字大小
+  final double textTitleBar;
+
+  /// 标题栏小一号文字大小
+  final double textTitleBarSub;
+
+  /// 标题栏item的最小宽度
+  final double minWidthTitleBarItem;
+
+  /// 标题栏图标的宽度
+  final double widthTitleBarItemImage;
+
+  /// 标题栏图标的高度
+  final double heightTitleBarItemImage;
+
   FResDimens({
     this.heightButton = 40,
     this.heightTextField = 40,
     this.widthDivider = 0.5,
+    //---------- titleBar ----------
+    this.heightTitleBar = 45,
+    this.textTitleBar = 16,
+    this.textTitleBarSub = 13,
+    this.minWidthTitleBarItem = 40,
+    this.widthTitleBarItemImage = 20,
+    this.heightTitleBarItemImage = 20,
   });
 }
