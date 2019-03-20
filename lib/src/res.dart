@@ -101,6 +101,7 @@ class FResColors {
         this.textTabSelected = textTabSelected ?? mainColor,
         this.shadowText = shadowText ?? Color(0xFF333333),
         this.divider = divider ?? Color(0xFFE7E7F1),
+        //---------- titleBar ----------
         this.bgTitleBar = bgTitleBar ?? mainColor,
         this.textTitleBar = textTitleBar ?? Colors.white;
 }
