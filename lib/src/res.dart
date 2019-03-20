@@ -3,7 +3,13 @@ import 'package:flutter/material.dart';
 class FRes {
   static FRes _instance;
 
-  FRes._internal() {}
+  FResColors _colors;
+  FResDimens _dimens;
+
+  FRes._internal() {
+    _colors = new FResColors();
+    _dimens = new FResDimens();
+  }
 
   static FRes getInstance() {
     if (_instance == null) {
@@ -11,9 +17,6 @@ class FRes {
     }
     return _instance;
   }
-
-  FResColors _colors = new FResColors();
-  FResDimens _dimens = new FResDimens();
 
   void init({FResColors colors, FResDimens dimens}) {
     if (colors != null) {
