@@ -109,43 +109,25 @@ class FTitleImage extends StatelessWidget {
   }
 }
 
-/// 标题栏文字
-class FTitleText extends StatelessWidget {
-  final String text;
-  final TextStyle style;
-
-  FTitleText(
-    this.text, {
+/// 标题栏文字TextStyle
+class FTextStyleTitleBar extends TextStyle {
+  FTextStyleTitleBar({
     Color color,
     double fontSize,
-    TextStyle style,
-  }) : this.style = style ??
-            new TextStyle(
-              color: color ?? FRes.colors().textTitleBar,
-              fontSize: fontSize ?? FRes.dimens().textTitleBar,
-              decoration: TextDecoration.none,
-            );
-
-  @override
-  Widget build(BuildContext context) {
-    return new Text(
-      text,
-      style: style,
-    );
-  }
+  }) : super(
+          color: color ?? FRes.colors().textTitleBar,
+          fontSize: fontSize ?? FRes.dimens().textTitleBar,
+          decoration: TextDecoration.none,
+        );
 }
 
-/// 标题栏小一号的文字
-class FTitleTextSub extends FTitleText {
-  FTitleTextSub(
-    String text, {
+/// 标题栏小一号文字TextStyle
+class FTextStyleTitleBarSub extends FTextStyleTitleBar {
+  FTextStyleTitleBarSub({
     Color color,
     double fontSize,
-    TextStyle style,
   }) : super(
-          text,
           color: color,
           fontSize: fontSize ?? FRes.dimens().textTitleBarSub,
-          style: style,
         );
 }
