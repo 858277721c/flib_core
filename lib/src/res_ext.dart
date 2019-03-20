@@ -2,6 +2,67 @@ import 'package:flutter/material.dart';
 
 import 'res.dart';
 
+class FTextStyle extends TextStyle {
+  FTextStyle({
+    Color color,
+    double fontSize,
+  }) : super(
+          color: color,
+          fontSize: fontSize,
+          decoration: TextDecoration.none,
+        );
+}
+
+class FTextStyleMainColor extends FTextStyle {
+  FTextStyleMainColor({
+    Color color,
+    double fontSize,
+  }) : super(
+          color: color ?? FRes.colors().mainColor,
+          fontSize: fontSize,
+        );
+}
+
+class FTextStyleGrayL extends FTextStyle {
+  FTextStyleGrayL({
+    Color color,
+    double fontSize,
+  }) : super(
+          color: color ?? FRes.colors().textGrayL,
+          fontSize: fontSize,
+        );
+}
+
+class FTextStyleGrayM extends FTextStyle {
+  FTextStyleGrayM({
+    Color color,
+    double fontSize,
+  }) : super(
+          color: color ?? FRes.colors().textGrayM,
+          fontSize: fontSize,
+        );
+}
+
+class FTextStyleGrayS extends FTextStyle {
+  FTextStyleGrayS({
+    Color color,
+    double fontSize,
+  }) : super(
+          color: color ?? FRes.colors().textGrayS,
+          fontSize: fontSize,
+        );
+}
+
+class FTextStyleHint extends FTextStyle {
+  FTextStyleHint({
+    Color color,
+    double fontSize,
+  }) : super(
+          color: color ?? FRes.colors().textHint,
+          fontSize: fontSize,
+        );
+}
+
 class FDivider extends StatelessWidget {
   final Color color;
   final double size;
