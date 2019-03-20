@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'res.dart';
 
-class FTitleSize extends Size {
-  FTitleSize({
+class FTitleBarSize extends Size {
+  FTitleBarSize({
     double width,
     double height,
   }) : super(
