@@ -76,7 +76,7 @@ class FResColors {
   final Color textTitleBar;
 
   FResColors({
-    this.mainColor,
+    this.mainColor = Colors.blue,
     Color mainColorPressed,
     Color bgPage,
     Color textGrayL,
