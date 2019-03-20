@@ -54,8 +54,7 @@ class FTitleItemContainer extends StatelessWidget {
     AlignmentGeometry alignment,
     this.padding = const EdgeInsets.only(left: 5, right: 5),
     this.onTap,
-  })  : assert(minWidth != null),
-        this.color = color ?? Colors.transparent,
+  })  : this.color = color ?? Colors.transparent,
         this.minWidth = minWidth ?? FRes.dimens().minWidthTitleBarItem,
         this.maxWidth = maxWidth ?? double.infinity,
         this.alignment = alignment ?? Alignment.center;
