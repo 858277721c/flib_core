@@ -63,6 +63,17 @@ class FTextStyleHint extends FTextStyle {
         );
 }
 
+class FRoundedRectangleBorderL extends RoundedRectangleBorder {
+  FRoundedRectangleBorderL({
+    BorderSide side = BorderSide.none,
+    BorderRadiusGeometry borderRadius,
+  }) : super(
+          side: side,
+          borderRadius: borderRadius ??
+              BorderRadius.circular(FRes.dimens().cornerRadiusL),
+        );
+}
+
 class FDivider extends StatelessWidget {
   final Color color;
   final double size;

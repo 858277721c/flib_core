@@ -40,9 +40,6 @@ class FResColors {
   /// 主题色
   final Color mainColor;
 
-  /// 主题色（按下状态）
-  final Color mainColorPressed;
-
   /// 页面背景色
   final Color bgPage;
 
@@ -80,30 +77,20 @@ class FResColors {
 
   FResColors({
     this.mainColor = Colors.blue,
-    Color mainColorPressed,
-    Color bgPage,
-    Color textGrayL,
-    Color textGrayM,
-    Color textGrayS,
-    Color textHint,
+    this.bgPage = const Color(0xFFF7F7F7),
+    this.textGrayL = const Color(0xFF333333),
+    this.textGrayM = const Color(0xFF666666),
+    this.textGrayS = const Color(0xFF999999),
+    this.textHint = const Color(0xFFCBCBCB),
     Color textTabNormal,
     Color textTabSelected,
-    Color shadowText,
-    Color divider,
+    this.shadowText = const Color(0xFF333333),
+    this.divider = const Color(0xFFE7E7F1),
     //---------- titleBar ----------
     Color bgTitleBar,
     Color textTitleBar,
-  })  : assert(mainColor != null),
-        this.mainColorPressed = mainColorPressed ?? mainColor,
-        this.bgPage = bgPage ?? Color(0xFFF7F7F7),
-        this.textGrayL = textGrayL ?? Color(0xFF333333),
-        this.textGrayM = textGrayM ?? Color(0xFF666666),
-        this.textGrayS = textGrayS ?? Color(0xFF999999),
-        this.textHint = textHint ?? Color(0xFFCBCBCB),
-        this.textTabNormal = textTabNormal ?? Color(0xFF999999),
+  })  : this.textTabNormal = textTabNormal ?? textGrayS,
         this.textTabSelected = textTabSelected ?? mainColor,
-        this.shadowText = shadowText ?? Color(0xFF333333),
-        this.divider = divider ?? Color(0xFFE7E7F1),
         //---------- titleBar ----------
         this.bgTitleBar = bgTitleBar ?? mainColor,
         this.textTitleBar = textTitleBar ?? Colors.white;
@@ -118,6 +105,9 @@ class FResDimens {
 
   /// 边框粗细
   final double widthDivider;
+
+  /// 圆角半径（大）
+  final double cornerRadiusL;
 
   //---------- titleBar ----------
 
@@ -150,5 +140,6 @@ class FResDimens {
     this.minWidthTitleBarItem = 40,
     this.widthTitleBarItemImage = 20,
     this.heightTitleBarItemImage = 20,
+    this.cornerRadiusL = 18,
   });
 }
