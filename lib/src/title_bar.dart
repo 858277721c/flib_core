@@ -13,16 +13,20 @@ class FTitleBarSize extends Size {
 }
 
 /// 标题栏容器
-class FTitleBarContainer extends StatelessWidget {
+class FTitleBarContainer extends StatelessWidget
+    implements PreferredSizeWidget {
   final Widget child;
   final Color color;
+  final double width;
   final double height;
 
   FTitleBarContainer({
     this.child,
     Color color,
+    double width,
     double height,
   })  : this.color = color ?? FRes.colors().bgTitleBar,
+        this.width = width ?? double.infinity,
         this.height = height ?? FRes.dimens().heightTitleBar;
 
   @override
@@ -30,10 +34,13 @@ class FTitleBarContainer extends StatelessWidget {
     return new Container(
       child: child,
       color: color,
-      width: double.infinity,
+      width: width,
       height: height,
     );
   }
+
+  @override
+  Size get preferredSize => new Size(width, height);
 }
 
 /// 标题栏item容器
