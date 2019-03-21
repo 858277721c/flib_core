@@ -52,14 +52,18 @@ class FTitleBarContainer extends StatelessWidget
 class FSimpleTitleBar extends FTitleBarContainer {
   final List<Widget> list = [];
 
-  FSimpleTitleBar(
+  FSimpleTitleBar({
     Color color,
     double width,
     double height,
     Widget left,
     Widget middle,
     Widget right,
-  ) : super(color: color, width: width, height: height) {
+  }) : super(
+          color: color,
+          width: width,
+          height: height,
+        ) {
     _addToList(left, Alignment.centerLeft);
     _addToList(middle, Alignment.center);
     _addToList(right, Alignment.centerRight);
