@@ -32,15 +32,61 @@ class FTitleBarContainer extends StatelessWidget
   @override
   Widget build(BuildContext context) {
     return new Container(
-      child: child,
+      child: getChild(),
       color: color,
       width: width,
       height: height,
     );
   }
 
+  @protected
+  Widget getChild() {
+    return child;
+  }
+
   @override
   Size get preferredSize => new Size(width, height);
+}
+
+/// 分为左，中，右的简单标题栏
+class FSimpleTitleBar extends FTitleBarContainer {
+  final List<Widget> list = [];
+
+  FSimpleTitleBar(
+    Color color,
+    double width,
+    double height,
+    Widget left,
+    Widget middle,
+    Widget right,
+  ) : super(color: color, width: width, height: height) {
+    _addToList(left, Alignment.centerLeft);
+    _addToList(middle, Alignment.center);
+    _addToList(right, Alignment.centerRight);
+  }
+
+  void _addToList(Widget child, AlignmentGeometry alignment) {
+    if (child == null) {
+      return;
+    }
+    assert(alignment != null);
+    list.add(new SizedBox(
+      child: new Stack(
+        alignment: alignment,
+        children: <Widget>[child],
+      ),
+      width: double.infinity,
+      height: double.infinity,
+    ));
+  }
+
+  @override
+  Widget getChild() {
+    return new Stack(
+      children: list,
+      alignment: Alignment.center,
+    );
+  }
 }
 
 /// 标题栏item容器
