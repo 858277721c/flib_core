@@ -13,14 +13,14 @@ class FTitleBarSize extends Size {
 }
 
 /// 标题栏容器
-class FTitleBarContainer extends StatelessWidget
+class FTitleBar extends StatelessWidget
     implements PreferredSizeWidget {
   final Widget child;
   final Color color;
   final double width;
   final double height;
 
-  FTitleBarContainer({
+  FTitleBar({
     this.child,
     Color color,
     double width,
@@ -49,7 +49,7 @@ class FTitleBarContainer extends StatelessWidget
 }
 
 /// 分为左，中，右的简单标题栏
-class FSimpleTitleBar extends FTitleBarContainer {
+class FSimpleTitleBar extends FTitleBar {
   final List<Widget> list = [];
 
   FSimpleTitleBar({
@@ -93,8 +93,8 @@ class FSimpleTitleBar extends FTitleBarContainer {
   }
 }
 
-/// 标题栏item容器
-class FTitleItemContainer extends StatelessWidget {
+/// 标题栏item
+class FTitleBarItem extends StatelessWidget {
   final Widget child;
   final Color color;
   final double minWidth;
@@ -103,7 +103,7 @@ class FTitleItemContainer extends StatelessWidget {
   final EdgeInsetsGeometry padding;
   final VoidCallback onTap;
 
-  FTitleItemContainer({
+  FTitleBarItem({
     this.child,
     Color color,
     double minWidth,
