@@ -13,8 +13,7 @@ class FTitleBarSize extends Size {
 }
 
 /// 标题栏容器
-class FTitleBar extends StatelessWidget
-    implements PreferredSizeWidget {
+class FTitleBar extends StatelessWidget implements PreferredSizeWidget {
   final Widget child;
   final Color color;
   final double width;
@@ -103,8 +102,8 @@ class FTitleBarItem extends StatelessWidget {
   final EdgeInsetsGeometry padding;
   final VoidCallback onTap;
 
-  FTitleBarItem({
-    this.child,
+  FTitleBarItem(
+    this.child, {
     Color color,
     double minWidth,
     double maxWidth,
