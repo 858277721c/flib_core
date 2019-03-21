@@ -74,9 +74,9 @@ class FSimpleTitleBar extends FTitleBar {
     }
     assert(alignment != null);
     list.add(new SizedBox(
-      child: new Stack(
+      child: new Align(
+        child: child,
         alignment: alignment,
-        children: <Widget>[child],
       ),
       width: double.infinity,
       height: double.infinity,
