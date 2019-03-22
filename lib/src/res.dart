@@ -106,6 +106,9 @@ class FResDimens {
   /// 边框粗细
   final double widthDivider;
 
+  /// 输入框边框粗细
+  final double widthTextFieldBorder;
+
   /// 圆角半径（大）
   final double cornerRadiusL;
 
@@ -133,6 +136,8 @@ class FResDimens {
     this.heightButton = 36,
     this.heightTextField = 40,
     this.widthDivider = 0.5,
+    this.widthTextFieldBorder = 0.5,
+    this.cornerRadiusL = 18,
     //---------- titleBar ----------
     this.heightTitleBar = 45,
     this.textTitleBar = 16,
@@ -140,6 +145,5 @@ class FResDimens {
     this.minWidthTitleBarItem = 40,
     this.widthTitleBarItemImage = 20,
     this.heightTitleBarItemImage = 20,
-    this.cornerRadiusL = 18,
   });
 }
