@@ -112,6 +112,9 @@ class FResDimens {
   /// 圆角半径（大）
   final double cornerRadiusL;
 
+  /// 圆角半径
+  final double cornerRadius;
+
   //---------- titleBar ----------
 
   /// 标题栏高度
@@ -138,6 +141,7 @@ class FResDimens {
     this.widthDivider = 0.5,
     this.widthTextFieldBorder = 0.5,
     this.cornerRadiusL = 18,
+    this.cornerRadius = 5,
     //---------- titleBar ----------
     this.heightTitleBar = 45,
     this.textTitleBar = 16,
