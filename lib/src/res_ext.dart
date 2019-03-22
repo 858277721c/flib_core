@@ -91,7 +91,7 @@ class FDivider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Container(
+    return Container(
       color: color,
       width: horizontal ? double.infinity : size,
       height: horizontal ? size : double.infinity,

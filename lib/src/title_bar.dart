@@ -30,7 +30,7 @@ class FTitleBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Container(
+    return Container(
       child: getChild(),
       color: color,
       width: width,
@@ -44,7 +44,7 @@ class FTitleBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => new Size(width, height);
+  Size get preferredSize => Size(width, height);
 }
 
 /// 分为左，中，右的简单标题栏
@@ -73,8 +73,8 @@ class FSimpleTitleBar extends FTitleBar {
       return;
     }
     assert(alignment != null);
-    list.add(new SizedBox(
-      child: new Align(
+    list.add(SizedBox(
+      child: Align(
         child: child,
         alignment: alignment,
       ),
@@ -85,7 +85,7 @@ class FSimpleTitleBar extends FTitleBar {
 
   @override
   Widget getChild() {
-    return new Stack(
+    return Stack(
       children: list,
       alignment: Alignment.center,
     );
@@ -117,16 +117,16 @@ class FTitleBarItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new GestureDetector(
-      child: new Container(
+    return GestureDetector(
+      child: Container(
         color: color,
-        constraints: new BoxConstraints(
+        constraints: BoxConstraints(
             minWidth: minWidth,
             maxWidth: maxWidth,
             minHeight: double.infinity,
             maxHeight: double.infinity),
         padding: padding,
-        child: new Stack(
+        child: Stack(
           children: <Widget>[
             child,
           ],
@@ -156,7 +156,7 @@ class FTitleImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Container(
+    return Container(
       child: image,
       width: width,
       height: height,

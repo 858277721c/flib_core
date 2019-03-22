@@ -7,13 +7,13 @@ class FRes {
   FResDimens _dimens;
 
   FRes._internal() {
-    _colors = new FResColors();
-    _dimens = new FResDimens();
+    _colors = FResColors();
+    _dimens = FResDimens();
   }
 
   static FRes getInstance() {
     if (_instance == null) {
-      _instance = new FRes._internal();
+      _instance = FRes._internal();
     }
     return _instance;
   }
@@ -130,7 +130,7 @@ class FResDimens {
   final double heightTitleBarItemImage;
 
   FResDimens({
-    this.heightButton = 40,
+    this.heightButton = 36,
     this.heightTextField = 40,
     this.widthDivider = 0.5,
     //---------- titleBar ----------
