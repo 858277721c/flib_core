@@ -17,50 +17,45 @@ class FTextStyle extends TextStyle {
 
 class FTextStyleMainColor extends FTextStyle {
   FTextStyleMainColor({
-    Color color,
     double fontSize,
   }) : super(
-          color: color ?? FRes.colors().mainColor,
+          color: FRes.colors().mainColor,
           fontSize: fontSize,
         );
 }
 
 class FTextStyleGrayL extends FTextStyle {
   FTextStyleGrayL({
-    Color color,
     double fontSize,
   }) : super(
-          color: color ?? FRes.colors().textGrayL,
+          color: FRes.colors().textGrayL,
           fontSize: fontSize,
         );
 }
 
 class FTextStyleGrayM extends FTextStyle {
   FTextStyleGrayM({
-    Color color,
     double fontSize,
   }) : super(
-          color: color ?? FRes.colors().textGrayM,
+          color: FRes.colors().textGrayM,
           fontSize: fontSize,
         );
 }
 
 class FTextStyleGrayS extends FTextStyle {
   FTextStyleGrayS({
-    Color color,
     double fontSize,
   }) : super(
-          color: color ?? FRes.colors().textGrayS,
+          color: FRes.colors().textGrayS,
           fontSize: fontSize,
         );
 }
 
 class FTextStyleHint extends FTextStyle {
   FTextStyleHint({
-    Color color,
     double fontSize,
   }) : super(
-          color: color ?? FRes.colors().textHint,
+          color: FRes.colors().textHint,
           fontSize: fontSize,
         );
 }
@@ -71,47 +66,76 @@ class FBorderSide extends BorderSide {
   FBorderSide({
     Color color,
     double width,
-    BorderStyle style,
   })  : assert(color != null),
         super(
           color: color,
           width: width ?? FRes.dimens().widthDivider,
-          style: style ?? BorderStyle.solid,
+          style: BorderStyle.solid,
         );
 }
 
 class FBorderSideDivider extends FBorderSide {
   FBorderSideDivider({
-    Color color,
     double width,
-    BorderStyle style,
   }) : super(
-          color: color ?? FRes.colors().divider,
+          color: FRes.colors().divider,
           width: width,
-          style: style,
         );
 }
 
 class FBorderSideMainColor extends FBorderSide {
   FBorderSideMainColor({
-    Color color,
     double width,
-    BorderStyle style,
   }) : super(
-          color: color ?? FRes.colors().mainColor,
+          color: FRes.colors().mainColor,
           width: width,
-          style: style,
         );
 }
 
 //---------- BorderRadius ----------
 
-class FBorderRadiusCorner extends BorderRadius {
+class FBorderRadius extends BorderRadius {
+  FBorderRadius.only({
+    Radius topLeft,
+    Radius topRight,
+    Radius bottomLeft,
+    Radius bottomRight,
+  }) : super.only(
+          topLeft: topLeft ?? Radius.zero,
+          topRight: topRight ?? Radius.zero,
+          bottomLeft: bottomLeft ?? Radius.zero,
+          bottomRight: bottomRight ?? Radius.zero,
+        );
+
+  FBorderRadius.all(Radius radius)
+      : this.only(
+          topLeft: radius,
+          topRight: radius,
+          bottomLeft: radius,
+          bottomRight: radius,
+        );
+
+  FBorderRadius copyWith({
+    Radius topLeft,
+    Radius topRight,
+    Radius bottomLeft,
+    Radius bottomRight,
+  }) {
+    return FBorderRadius.only(
+      topLeft: topLeft ?? this.topLeft,
+      topRight: topRight ?? this.topRight,
+      bottomLeft: bottomLeft ?? this.bottomLeft,
+      bottomRight: bottomRight ?? this.bottomRight,
+    );
+  }
+}
+
+class FBorderRadiusCorner extends FBorderRadius {
   FBorderRadiusCorner()
       : super.all(Radius.circular(FRes.dimens().cornerRadius));
 }
 
-class FBorderRadiusCornerL extends BorderRadius {
+class FBorderRadiusCornerL extends FBorderRadius {
   FBorderRadiusCornerL()
       : super.all(Radius.circular(FRes.dimens().cornerRadiusL));
 }
