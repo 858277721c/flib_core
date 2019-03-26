@@ -127,6 +127,9 @@ class FResTitleBar {
   /// 标题栏文字颜色
   final Color textColor;
 
+  /// 返回按钮
+  final String imageBack;
+
   /// 标题栏高度
   final double height;
 
@@ -148,6 +151,7 @@ class FResTitleBar {
   FResTitleBar({
     this.backgroundColor = Colors.blue,
     this.textColor = Colors.white,
+    this.imageBack,
     this.height = 45,
     this.textSize = 16,
     this.textSizeSub = 13,

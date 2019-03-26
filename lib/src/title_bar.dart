@@ -49,7 +49,7 @@ class FTitleBar extends StatelessWidget implements PreferredSizeWidget {
 
 /// 分为左，中，右的简单标题栏
 class FSimpleTitleBar extends FTitleBar {
-  final List<Widget> list = [];
+  final List<Widget> _list = [];
 
   FSimpleTitleBar({
     Color color,
@@ -63,6 +63,10 @@ class FSimpleTitleBar extends FTitleBar {
           width: width,
           height: height,
         ) {
+    if (left == null) {
+      left = FTitleBarItemBack();
+    }
+
     _addToList(left, Alignment.centerLeft);
     _addToList(middle, Alignment.center);
     _addToList(right, Alignment.centerRight);
@@ -73,7 +77,7 @@ class FSimpleTitleBar extends FTitleBar {
       return;
     }
     assert(alignment != null);
-    list.add(SizedBox(
+    _list.add(SizedBox(
       child: Align(
         child: child,
         alignment: alignment,
@@ -86,11 +90,13 @@ class FSimpleTitleBar extends FTitleBar {
   @override
   Widget getChild() {
     return Stack(
-      children: list,
+      children: _list,
       alignment: Alignment.center,
     );
   }
 }
+
+typedef void OnTapTitleBarItem(BuildContext context);
 
 /// 标题栏item
 class FTitleBarItem extends StatelessWidget {
@@ -100,7 +106,7 @@ class FTitleBarItem extends StatelessWidget {
   final double maxWidth;
   final AlignmentGeometry alignment;
   final EdgeInsetsGeometry padding;
-  final VoidCallback onTap;
+  final OnTapTitleBarItem onTap;
 
   FTitleBarItem(
     this.child, {
@@ -117,50 +123,64 @@ class FTitleBarItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      child: Container(
-        color: color,
-        constraints: BoxConstraints(
-            minWidth: minWidth,
-            maxWidth: maxWidth,
-            minHeight: double.infinity,
-            maxHeight: double.infinity),
-        padding: padding,
+    return Container(
+      color: color,
+      constraints: BoxConstraints(
+          minWidth: minWidth,
+          maxWidth: maxWidth,
+          minHeight: double.infinity,
+          maxHeight: double.infinity),
+      padding: padding,
+      child: GestureDetector(
         child: Stack(
           children: <Widget>[
-            child,
+            _getChild(),
           ],
           alignment: alignment,
         ),
+        onTap: () {
+          if (onTap != null) {
+            onTap(context);
+          }
+        },
       ),
-      onTap: onTap,
     );
+  }
+
+  Widget _getChild() {
+    if (child is Image) {
+      final Image imageChild = child as Image;
+      if (imageChild.width == null && imageChild.height == null) {
+        return SizedBox(
+          child: child,
+          width: FRes.titleBar().widthItemImage,
+          height: FRes.titleBar().heightItemImage,
+        );
+      }
+    }
+    return child;
   }
 }
 
-/// 标题栏图标
-class FTitleImage extends StatelessWidget {
-  final Image image;
-  final double width;
-  final double height;
-
-  FTitleImage(
-    this.image, {
-    double width,
-    double height,
-  })  : assert(image != null),
-        this.width = image.width ?? (width ?? FRes.titleBar().widthItemImage),
-        this.height =
-            image.height ?? (height ?? FRes.titleBar().heightItemImage);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: image,
-      width: width,
-      height: height,
-    );
-  }
+/// 标题栏返回item
+class FTitleBarItemBack extends FTitleBarItem {
+  FTitleBarItemBack({OnTapTitleBarItem onTap})
+      : super(
+          FRes.titleBar().imageBack != null
+              ? Image.asset(
+                  FRes.titleBar().imageBack,
+                  width: FRes.titleBar().widthItemImage,
+                  height: FRes.titleBar().heightItemImage,
+                )
+              : Icon(
+                  Icons.arrow_back_ios,
+                  size: FRes.titleBar().widthItemImage,
+                ),
+          onTap: onTap ??
+              (context) {
+                Navigator.of(context).pop();
+              },
+        );
 }
 
 /// 标题栏文字TextStyle
