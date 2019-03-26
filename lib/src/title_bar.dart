@@ -8,7 +8,7 @@ class FTitleBarSize extends Size {
     double height,
   }) : super(
           width ?? double.infinity,
-          height ?? FRes.dimens().heightTitleBar,
+          height ?? FRes.titleBar().height,
         );
 }
 
@@ -24,9 +24,9 @@ class FTitleBar extends StatelessWidget implements PreferredSizeWidget {
     Color color,
     double width,
     double height,
-  })  : this.color = color ?? FRes.colors().bgTitleBar,
+  })  : this.color = color ?? FRes.titleBar().backgroundColor,
         this.width = width ?? double.infinity,
-        this.height = height ?? FRes.dimens().heightTitleBar;
+        this.height = height ?? FRes.titleBar().height;
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +111,7 @@ class FTitleBarItem extends StatelessWidget {
     this.padding = const EdgeInsets.only(left: 5, right: 5),
     this.onTap,
   })  : this.color = color ?? Colors.transparent,
-        this.minWidth = minWidth ?? FRes.dimens().minWidthTitleBarItem,
+        this.minWidth = minWidth ?? FRes.titleBar().minWidthItem,
         this.maxWidth = maxWidth ?? double.infinity,
         this.alignment = alignment ?? Alignment.center;
 
@@ -149,10 +149,9 @@ class FTitleImage extends StatelessWidget {
     double width,
     double height,
   })  : assert(image != null),
-        this.width =
-            image.width ?? (width ?? FRes.dimens().widthTitleBarItemImage),
+        this.width = image.width ?? (width ?? FRes.titleBar().widthItemImage),
         this.height =
-            image.height ?? (height ?? FRes.dimens().heightTitleBarItemImage);
+            image.height ?? (height ?? FRes.titleBar().heightItemImage);
 
   @override
   Widget build(BuildContext context) {
@@ -170,8 +169,8 @@ class FTextStyleTitleBar extends TextStyle {
     Color color,
     double fontSize,
   }) : super(
-          color: color ?? FRes.colors().textTitleBar,
-          fontSize: fontSize ?? FRes.dimens().textTitleBar,
+          color: color ?? FRes.titleBar().textColor,
+          fontSize: fontSize ?? FRes.titleBar().textSize,
           decoration: TextDecoration.none,
         );
 }
@@ -183,6 +182,6 @@ class FTextStyleTitleBarSub extends FTextStyleTitleBar {
     double fontSize,
   }) : super(
           color: color,
-          fontSize: fontSize ?? FRes.dimens().textTitleBarSub,
+          fontSize: fontSize ?? FRes.titleBar().textSizeSub,
         );
 }

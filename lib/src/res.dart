@@ -5,10 +5,12 @@ class FRes {
 
   FResColors _colors;
   FResDimens _dimens;
+  FResTitleBar _titleBar;
 
   FRes._internal() {
     _colors = FResColors();
     _dimens = FResDimens();
+    _titleBar = FResTitleBar();
   }
 
   static FRes getInstance() {
@@ -18,12 +20,15 @@ class FRes {
     return _instance;
   }
 
-  void init({FResColors colors, FResDimens dimens}) {
+  void init({FResColors colors, FResDimens dimens, FResTitleBar titleBar}) {
     if (colors != null) {
       _colors = colors;
     }
     if (dimens != null) {
       _dimens = dimens;
+    }
+    if (titleBar != null) {
+      _titleBar = titleBar;
     }
   }
 
@@ -33,6 +38,10 @@ class FRes {
 
   static FResDimens dimens() {
     return getInstance()._dimens;
+  }
+
+  static FResTitleBar titleBar() {
+    return getInstance()._titleBar;
   }
 }
 
@@ -67,14 +76,6 @@ class FResColors {
   /// 分割线颜色
   final Color divider;
 
-  //---------- titleBar ----------
-
-  /// 标题栏背景色
-  final Color bgTitleBar;
-
-  /// 标题栏文字颜色
-  final Color textTitleBar;
-
   FResColors({
     this.mainColor = Colors.blue,
     this.bgPage = const Color(0xFFF7F7F7),
@@ -86,14 +87,8 @@ class FResColors {
     Color textTabSelected,
     this.shadowText = const Color(0xFF333333),
     this.divider = const Color(0xFFE7E7F1),
-    //---------- titleBar ----------
-    Color bgTitleBar,
-    Color textTitleBar,
   })  : this.textTabNormal = textTabNormal ?? textGrayS,
-        this.textTabSelected = textTabSelected ?? mainColor,
-        //---------- titleBar ----------
-        this.bgTitleBar = bgTitleBar ?? mainColor,
-        this.textTitleBar = textTitleBar ?? Colors.white;
+        this.textTabSelected = textTabSelected ?? mainColor;
 }
 
 class FResDimens {
@@ -115,26 +110,6 @@ class FResDimens {
   /// 圆角半径
   final double cornerRadius;
 
-  //---------- titleBar ----------
-
-  /// 标题栏高度
-  final double heightTitleBar;
-
-  /// 标题栏文字大小
-  final double textTitleBar;
-
-  /// 标题栏小一号文字大小
-  final double textTitleBarSub;
-
-  /// 标题栏item的最小宽度
-  final double minWidthTitleBarItem;
-
-  /// 标题栏图标的宽度
-  final double widthTitleBarItemImage;
-
-  /// 标题栏图标的高度
-  final double heightTitleBarItemImage;
-
   FResDimens({
     this.heightButton = 36,
     this.heightTextField = 40,
@@ -142,12 +117,42 @@ class FResDimens {
     this.widthTextFieldBorder = 0.5,
     this.cornerRadiusL = 18,
     this.cornerRadius = 5,
-    //---------- titleBar ----------
-    this.heightTitleBar = 45,
-    this.textTitleBar = 16,
-    this.textTitleBarSub = 13,
-    this.minWidthTitleBarItem = 40,
-    this.widthTitleBarItemImage = 20,
-    this.heightTitleBarItemImage = 20,
+  });
+}
+
+class FResTitleBar {
+  /// 标题栏背景色
+  final Color backgroundColor;
+
+  /// 标题栏文字颜色
+  final Color textColor;
+
+  /// 标题栏高度
+  final double height;
+
+  /// 标题栏文字大小
+  final double textSize;
+
+  /// 标题栏小一号文字大小
+  final double textSizeSub;
+
+  /// 标题栏item的最小宽度
+  final double minWidthItem;
+
+  /// 标题栏图标的宽度
+  final double widthItemImage;
+
+  /// 标题栏图标的高度
+  final double heightItemImage;
+
+  FResTitleBar({
+    this.backgroundColor = Colors.blue,
+    this.textColor = Colors.white,
+    this.height = 45,
+    this.textSize = 16,
+    this.textSizeSub = 13,
+    this.minWidthItem = 40,
+    this.widthItemImage = 20,
+    this.heightItemImage = 20,
   });
 }
