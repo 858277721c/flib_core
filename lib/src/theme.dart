@@ -6,12 +6,15 @@ import 'res_ext.dart';
 class FButtonThemeData extends ButtonThemeData {
   FButtonThemeData()
       : super(
+          textTheme: ButtonTextTheme.primary,
+          minWidth: 0,
           height: FRes.dimens().heightButton,
-          buttonColor: FRes.colors().mainColor,
-          disabledColor: FRes.colors().mainColor.withOpacity(0.6),
+          padding: EdgeInsets.all(0),
           shape: RoundedRectangleBorder(
             borderRadius: FBorderRadiusCorner(),
           ),
+          buttonColor: FRes.colors().mainColor,
+          disabledColor: FRes.colors().mainColor.withOpacity(0.6),
         );
 }
 
