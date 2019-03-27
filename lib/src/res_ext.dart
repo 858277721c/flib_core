@@ -258,7 +258,6 @@ class FSystemUiOverlay extends StatefulWidget {
 
 class _FSystemUiOverlayState extends State<FSystemUiOverlay> {
   SystemUiOverlayStyle _style;
-  bool _resume = true;
 
   @override
   void initState() {
@@ -269,10 +268,12 @@ class _FSystemUiOverlayState extends State<FSystemUiOverlay> {
       Brightness statusBarIconBrightness;
 
       if (widget.top) {
-        final bool isDark = widget.topBrightness != null
-            ? widget.topBrightness == Brightness.dark
-            : widget.topColor.computeLuminance() < 0.5;
+        final bool isDark = _isDark(
+          brightness: widget.topBrightness,
+          color: widget.topColor,
+        );
 
+        assert(isDark != null);
         statusBarColor = widget.topColor;
         statusBarBrightness = isDark ? Brightness.dark : Brightness.light;
         statusBarIconBrightness = isDark ? Brightness.light : Brightness.dark;
@@ -282,10 +283,12 @@ class _FSystemUiOverlayState extends State<FSystemUiOverlay> {
       Brightness systemNavigationBarIconBrightness;
 
       if (widget.bottom) {
-        final bool isDark = widget.bottomBrightness != null
-            ? widget.bottomBrightness == Brightness.dark
-            : widget.bottomColor.computeLuminance() < 0.5;
+        final bool isDark = _isDark(
+          brightness: widget.bottomBrightness,
+          color: widget.bottomColor,
+        );
 
+        assert(isDark != null);
         systemNavigationBarColor = widget.bottomColor;
         systemNavigationBarIconBrightness =
             isDark ? Brightness.light : Brightness.dark;
@@ -301,18 +304,25 @@ class _FSystemUiOverlayState extends State<FSystemUiOverlay> {
     }
   }
 
-  @override
-  void deactivate() {
-    super.deactivate();
-    _resume = !_resume;
+  bool _isDark({Brightness brightness, Color color}) {
+    if (brightness != null) {
+      return brightness == Brightness.dark;
+    }
+    if (color == Colors.transparent) {
+      return true;
+    }
+    return color.computeLuminance() < 0.5;
   }
 
   @override
   Widget build(BuildContext context) {
-    if (_resume && _style != null) {
-      SystemChrome.setSystemUIOverlayStyle(_style);
+    if (_style == null) {
+      return widget.child;
     }
 
-    return widget.child;
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      child: widget.child,
+      value: _style,
+    );
   }
 }
