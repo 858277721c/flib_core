@@ -106,6 +106,7 @@ class FTitleBarItem extends StatelessWidget {
   final double maxWidth;
   final AlignmentGeometry alignment;
   final EdgeInsetsGeometry padding;
+  final EdgeInsetsGeometry margin;
   final OnTapTitleBarItem onTap;
 
   FTitleBarItem(
@@ -115,6 +116,7 @@ class FTitleBarItem extends StatelessWidget {
     double maxWidth,
     AlignmentGeometry alignment,
     this.padding = const EdgeInsets.only(left: 5, right: 5),
+    this.margin,
     this.onTap,
   })  : this.color = color ?? Colors.transparent,
         this.minWidth = minWidth ?? FRes.titleBar().minWidthItem,
@@ -131,18 +133,19 @@ class FTitleBarItem extends StatelessWidget {
           minHeight: double.infinity,
           maxHeight: double.infinity),
       padding: padding,
-      child: GestureDetector(
+      margin: margin,
+      child: InkWell(
         child: Stack(
           children: <Widget>[
             _getChild(),
           ],
           alignment: alignment,
         ),
-        onTap: () {
-          if (onTap != null) {
-            onTap(context);
-          }
-        },
+        onTap: onTap == null
+            ? null
+            : () {
+                onTap(context);
+              },
       ),
     );
   }
