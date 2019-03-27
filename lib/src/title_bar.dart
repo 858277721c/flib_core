@@ -178,7 +178,7 @@ class FTitleBarItemBack extends FTitleBarItem {
                 ),
           onTap: onTap ??
               (context) {
-                Navigator.of(context).pop();
+                Navigator.maybePop(context);
               },
         );
 }
