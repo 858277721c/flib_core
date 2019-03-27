@@ -75,7 +75,7 @@ class FSystemUiOverlay extends StatefulWidget {
     if (color == null || color.alpha != 0xFF) {
       return true;
     }
-    return color.computeLuminance() < 0.5;
+    return ThemeData.estimateBrightnessForColor(color) == Brightness.dark;
   }
 
   @override
