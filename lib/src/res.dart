@@ -150,7 +150,7 @@ class FResTitleBar {
 
   FResTitleBar({
     this.backgroundColor = Colors.blue,
-    this.textColor = Colors.white,
+    Color textColor,
     this.imageBack,
     this.height = 45,
     this.textSize = 16,
@@ -158,5 +158,10 @@ class FResTitleBar {
     this.minWidthItem = 40,
     this.widthItemImage = 20,
     this.heightItemImage = 20,
-  });
+  })  : assert(backgroundColor != null),
+        this.textColor = textColor ??
+            (ThemeData.estimateBrightnessForColor(backgroundColor) ==
+                    Brightness.dark
+                ? Colors.white
+                : FRes.colors().textGrayL);
 }
