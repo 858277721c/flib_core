@@ -254,8 +254,6 @@ class _FSystemUiOverlayState extends State<FSystemUiOverlay> {
       SystemChrome.setSystemUIOverlayStyle(_style);
     }
 
-    if (_style == null) {
-      return widget.child;
-    }
+    return widget.child;
   }
 }
