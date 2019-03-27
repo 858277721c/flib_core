@@ -14,3 +14,7 @@ class FButtonThemeData extends ButtonThemeData {
           ),
         );
 }
+
+class FAppBarTheme extends AppBarTheme {
+  FAppBarTheme() : super(color: FRes.titleBar().backgroundColor);
+}
