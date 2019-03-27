@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'res.dart';
 
@@ -162,6 +163,93 @@ class FDivider extends StatelessWidget {
       width: horizontal ? double.infinity : size,
       height: horizontal ? size : double.infinity,
       margin: margin,
+    );
+  }
+}
+
+class FSystemUiOverlay extends StatefulWidget {
+  final Widget child;
+
+  final bool top;
+  final Color topColor;
+  final Brightness topBrightness;
+
+  final bool bottom;
+  final Color bottomColor;
+  final Brightness bottomBrightness;
+
+  FSystemUiOverlay({
+    @required this.child,
+    this.top = true,
+    Color topColor,
+    this.topBrightness,
+    this.bottom = true,
+    Color bottomColor,
+    this.bottomBrightness,
+  })  : assert(top != null),
+        assert(bottom != null),
+        this.topColor = topColor ?? FRes.titleBar().backgroundColor,
+        this.bottomColor = bottomColor ?? Colors.black;
+
+  @override
+  State<StatefulWidget> createState() {
+    return _FSystemUiOverlayState();
+  }
+}
+
+class _FSystemUiOverlayState extends State<FSystemUiOverlay> {
+  SystemUiOverlayStyle _style;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.top || widget.bottom) {
+      Color statusBarColor;
+      Brightness statusBarBrightness;
+      Brightness statusBarIconBrightness;
+
+      if (widget.top) {
+        final bool isDark = widget.topBrightness != null
+            ? widget.topBrightness == Brightness.dark
+            : widget.topColor.computeLuminance() < 0.5;
+
+        statusBarColor = widget.topColor;
+        statusBarBrightness = isDark ? Brightness.dark : Brightness.light;
+        statusBarIconBrightness = isDark ? Brightness.light : Brightness.dark;
+      }
+
+      Color systemNavigationBarColor;
+      Brightness systemNavigationBarIconBrightness;
+
+      if (widget.bottom) {
+        final bool isDark = widget.bottomBrightness != null
+            ? widget.bottomBrightness == Brightness.dark
+            : widget.bottomColor.computeLuminance() < 0.5;
+
+        systemNavigationBarColor = widget.bottomColor;
+        systemNavigationBarIconBrightness =
+            isDark ? Brightness.light : Brightness.dark;
+      }
+
+      _style = SystemUiOverlayStyle(
+        statusBarColor: statusBarColor,
+        statusBarBrightness: statusBarBrightness,
+        statusBarIconBrightness: statusBarIconBrightness,
+        systemNavigationBarColor: systemNavigationBarColor,
+        systemNavigationBarIconBrightness: systemNavigationBarIconBrightness,
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (_style == null) {
+      return widget.child;
+    }
+
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      child: widget.child,
+      value: _style,
     );
   }
 }
