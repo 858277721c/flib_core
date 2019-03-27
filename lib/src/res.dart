@@ -124,6 +124,8 @@ class FResTitleBar {
   /// 标题栏背景色
   final Color backgroundColor;
 
+  final Brightness brightness;
+
   /// 标题栏文字颜色
   final Color textColor;
 
@@ -150,6 +152,7 @@ class FResTitleBar {
 
   FResTitleBar({
     this.backgroundColor = Colors.blue,
+    Brightness brightness,
     Color textColor,
     this.imageBack,
     this.height = 45,
@@ -159,6 +162,8 @@ class FResTitleBar {
     this.widthItemImage = 20,
     this.heightItemImage = 20,
   })  : assert(backgroundColor != null),
+        this.brightness =
+            brightness ?? ThemeData.estimateBrightnessForColor(backgroundColor),
         this.textColor = textColor ??
             (ThemeData.estimateBrightnessForColor(backgroundColor) ==
                     Brightness.dark

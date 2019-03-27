@@ -166,24 +166,36 @@ class FTitleBarItem extends StatelessWidget {
 }
 
 /// 标题栏返回item
-class FTitleBarItemBack extends FTitleBarItem {
-  FTitleBarItemBack({OnTapTitleBarItem onTap})
-      : super(
-          FRes.titleBar().imageBack != null
-              ? Image.asset(
-                  FRes.titleBar().imageBack,
-                  width: FRes.titleBar().widthItemImage,
-                  height: FRes.titleBar().heightItemImage,
-                )
-              : Icon(
-                  Icons.arrow_back_ios,
-                  size: FRes.titleBar().widthItemImage,
-                ),
-          onTap: onTap ??
-              (context) {
-                Navigator.maybePop(context);
-              },
-        );
+class FTitleBarItemBack extends StatelessWidget {
+  final OnTapTitleBarItem onTap;
+
+  FTitleBarItemBack({this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    Widget child;
+
+    final String imageBack = FRes.titleBar().imageBack;
+    if (imageBack != null && imageBack.isNotEmpty) {
+      child = Image.asset(
+        imageBack,
+        width: FRes.titleBar().widthItemImage,
+        height: FRes.titleBar().heightItemImage,
+      );
+    } else {
+      child = Icon(
+        Icons.arrow_back_ios,
+        size: FRes.titleBar().widthItemImage,
+        color: FRes.titleBar().textColor,
+      );
+    }
+
+    assert(child != null);
+    return FTitleBarItem(
+      child,
+      onTap: onTap,
+    );
+  }
 }
 
 /// 标题栏文字TextStyle
