@@ -186,7 +186,8 @@ class FSystemUiOverlay extends StatefulWidget {
     this.bottom = true,
     Color bottomColor,
     this.bottomBrightness,
-  })  : assert(top != null),
+  })  : assert(child != null),
+        assert(top != null),
         assert(bottom != null),
         this.topColor = topColor ?? FRes.titleBar().backgroundColor,
         this.bottomColor = bottomColor ?? Colors.black;
