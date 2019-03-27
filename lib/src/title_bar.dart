@@ -193,7 +193,10 @@ class FTitleBarItemBack extends StatelessWidget {
     assert(child != null);
     return FTitleBarItem(
       child,
-      onTap: onTap,
+      onTap: onTap ??
+          (context) {
+            Navigator.maybePop(context);
+          },
     );
   }
 }
