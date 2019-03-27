@@ -18,5 +18,9 @@ class FButtonThemeData extends ButtonThemeData {
 }
 
 class FAppBarTheme extends AppBarTheme {
-  FAppBarTheme() : super(color: FRes.titleBar().backgroundColor);
+  FAppBarTheme()
+      : super(
+          color: FRes.titleBar().backgroundColor,
+          brightness: FRes.titleBar().brightness,
+        );
 }
