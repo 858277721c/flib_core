@@ -177,12 +177,13 @@ class FSafeArea extends StatelessWidget {
   final Color bottomColor;
 
   FSafeArea({
-    this.child,
+    @required this.child,
     this.top = true,
     Color topColor,
     this.bottom = true,
     Color bottomColor,
-  })  : assert(top != null),
+  })  : assert(child != null),
+        assert(top != null),
         assert(bottom != null),
         this.topColor = topColor ?? FRes.titleBar().backgroundColor,
         this.bottomColor = bottomColor ?? FRes.colors().bgPage;
@@ -246,7 +247,7 @@ class FSystemUiOverlay extends StatefulWidget {
   })  : assert(child != null),
         assert(top != null),
         assert(bottom != null),
-        this.topColor = topColor ?? FRes.titleBar().backgroundColor,
+        this.topColor = topColor ?? Colors.transparent,
         this.bottomColor = bottomColor ?? Colors.black;
 
   @override
