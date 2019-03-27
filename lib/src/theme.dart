@@ -6,7 +6,6 @@ import 'res_ext.dart';
 class FButtonThemeData extends ButtonThemeData {
   FButtonThemeData()
       : super(
-          textTheme: ButtonTextTheme.primary,
           minWidth: 0,
           height: FRes.dimens().heightButton,
           padding: EdgeInsets.all(0),
