@@ -167,6 +167,63 @@ class FDivider extends StatelessWidget {
   }
 }
 
+class FSafeArea extends StatelessWidget {
+  final Widget child;
+
+  final bool top;
+  final Color topColor;
+
+  final bool bottom;
+  final Color bottomColor;
+
+  FSafeArea({
+    this.child,
+    this.top = true,
+    Color topColor,
+    this.bottom = true,
+    Color bottomColor,
+  })  : assert(top != null),
+        assert(bottom != null),
+        this.topColor = topColor ?? FRes.titleBar().backgroundColor,
+        this.bottomColor = bottomColor ?? FRes.colors().bgPage;
+
+  @override
+  Widget build(BuildContext context) {
+    final EdgeInsets padding = MediaQuery.of(context).padding;
+    final List<Widget> list = [];
+
+    if (top && padding.top > 0) {
+      list.add(Container(
+        color: topColor,
+        height: padding.top,
+      ));
+    }
+
+    list.add(Expanded(
+      child: MediaQuery.removePadding(
+        context: context,
+        removeTop: top,
+        removeBottom: bottom,
+        removeLeft: true,
+        removeRight: true,
+        child: child,
+      ),
+    ));
+
+    if (bottom && padding.bottom > 0) {
+      list.add(Container(
+        color: bottomColor,
+        height: padding.bottom,
+      ));
+    }
+
+    return Column(
+      mainAxisSize: MainAxisSize.max,
+      children: list,
+    );
+  }
+}
+
 class FSystemUiOverlay extends StatefulWidget {
   final Widget child;
 
