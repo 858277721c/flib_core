@@ -199,6 +199,7 @@ class FSystemUiOverlay extends StatefulWidget {
 
 class _FSystemUiOverlayState extends State<FSystemUiOverlay> {
   SystemUiOverlayStyle _style;
+  bool _resume = true;
 
   @override
   void initState() {
@@ -242,14 +243,19 @@ class _FSystemUiOverlayState extends State<FSystemUiOverlay> {
   }
 
   @override
+  void deactivate() {
+    super.deactivate();
+    _resume = !_resume;
+  }
+
+  @override
   Widget build(BuildContext context) {
+    if (_resume && _style != null) {
+      SystemChrome.setSystemUIOverlayStyle(_style);
+    }
+
     if (_style == null) {
       return widget.child;
     }
-
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-      child: widget.child,
-      value: _style,
-    );
   }
 }
