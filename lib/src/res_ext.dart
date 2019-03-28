@@ -24,6 +24,15 @@ class FTextStyleMainColor extends FTextStyle {
         );
 }
 
+class FTextStyleMainColorDisabled extends FTextStyle {
+  FTextStyleMainColorDisabled({
+    double fontSize,
+  }) : super(
+          color: FRes.colors().mainColorDisabled,
+          fontSize: fontSize,
+        );
+}
+
 class FTextStyleGrayL extends FTextStyle {
   FTextStyleGrayL({
     double fontSize,
@@ -88,6 +97,15 @@ class FBorderSideMainColor extends FBorderSide {
     double width,
   }) : super(
           color: FRes.colors().mainColor,
+          width: width,
+        );
+}
+
+class FBorderSideMainColorDisabled extends FBorderSide {
+  FBorderSideMainColorDisabled({
+    double width,
+  }) : super(
+          color: FRes.colors().mainColorDisabled,
           width: width,
         );
 }

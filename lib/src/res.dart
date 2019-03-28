@@ -49,6 +49,9 @@ class FResColors {
   /// 主题色
   final Color mainColor;
 
+  /// 主题色不可用状态的颜色
+  final Color mainColorDisabled;
+
   /// 页面背景色
   final Color bgPage;
 
@@ -87,7 +90,9 @@ class FResColors {
     Color textTabSelected,
     this.shadowText = const Color(0xFF333333),
     this.divider = const Color(0xFFE7E7F1),
-  })  : this.textTabNormal = textTabNormal ?? textGrayS,
+  })  : assert(mainColor != null),
+        this.mainColorDisabled = mainColor.withOpacity(0.5),
+        this.textTabNormal = textTabNormal ?? textGrayS,
         this.textTabSelected = textTabSelected ?? mainColor;
 }
 
