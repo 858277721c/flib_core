@@ -4,7 +4,11 @@ abstract class FState<T extends StatefulWidget> extends State<T> {
   bool _paused = false;
 
   /// 查找某个State
-  static T ancestorState<T>(BuildContext context) {
+  T ancestorState<T extends State>() {
+    assert(T != State);
+    if (context == null) {
+      return null;
+    }
     final State state = context.ancestorStateOfType(new TypeMatcher<T>());
     return state == null ? null : state as T;
   }
