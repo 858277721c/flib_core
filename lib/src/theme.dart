@@ -8,7 +8,7 @@ class FButtonThemeData extends ButtonThemeData {
       : super(
           minWidth: 0,
           height: FRes.dimens().heightButton,
-          padding: EdgeInsets.all(0),
+          padding: EdgeInsets.symmetric(vertical: 0, horizontal: 5),
           shape: RoundedRectangleBorder(
             borderRadius: FBorderRadiusCorner(),
           ),
