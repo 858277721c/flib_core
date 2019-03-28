@@ -7,11 +7,11 @@ class FTheme {
   FTheme._();
 
   static ThemeData themeData() {
+    final Color mainColor = FRes.colors().mainColor;
     return ThemeData(
-      primaryColor: FRes.colors().mainColor,
-      accentColor: FRes.colors().mainColor,
+      primaryColor: mainColor,
       scaffoldBackgroundColor: FRes.colors().bgPage,
-      buttonTheme: buttonThemeData(),
+      buttonTheme: buttonThemeDataPrimary(),
       appBarTheme: appBarTheme(),
     );
   }
@@ -24,8 +24,18 @@ class FTheme {
       shape: RoundedRectangleBorder(
         borderRadius: FBorderRadiusCorner(),
       ),
-      buttonColor: FRes.colors().mainColor,
-      disabledColor: FRes.colors().mainColor.withOpacity(0.6),
+    );
+  }
+
+  static ButtonThemeData buttonThemeDataPrimary() {
+    final Color mainColor = FRes.colors().mainColor;
+    return buttonThemeData().copyWith(
+      textTheme: ButtonTextTheme.primary,
+      buttonColor: mainColor,
+      colorScheme: ColorScheme.light().copyWith(
+        primary: mainColor,
+        onSurface: mainColor,
+      ),
     );
   }
 
