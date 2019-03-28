@@ -5,7 +5,8 @@ abstract class FState<T extends StatefulWidget> extends State<T> {
 
   /// 查找某个State
   static T ancestorState<T extends State>(BuildContext context) {
-    return context.ancestorStateOfType(new TypeMatcher<T>());
+    final State state = context.ancestorStateOfType(new TypeMatcher<T>());
+    return state == null ? null : state as T;
   }
 
   @mustCallSuper
