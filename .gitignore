@@ -5,6 +5,7 @@
 .pub/
 *.iml
 build/
+*.lock
 ios/.generated/
 ios/Flutter/Generated.xcconfig
 ios/Runner/GeneratedPluginRegistrant.*
