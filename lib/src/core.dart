@@ -9,7 +9,7 @@ abstract class FState<T extends StatefulWidget> extends State<T> {
     if (context == null) {
       return null;
     }
-    final State state = context.ancestorStateOfType(new TypeMatcher<T>());
+    final State state = context.ancestorStateOfType(TypeMatcher<T>());
     return state == null ? null : state as T;
   }
 
