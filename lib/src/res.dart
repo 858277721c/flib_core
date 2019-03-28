@@ -104,19 +104,19 @@ class FResDimens {
   /// 输入框边框粗细
   final double widthTextFieldBorder;
 
-  /// 圆角半径（大）
-  final double cornerRadiusL;
-
   /// 圆角半径
-  final double cornerRadius;
+  final double radiusCorner;
+
+  /// 圆角半径（大）
+  final double radiusCornerL;
 
   FResDimens({
     this.heightButton = 36,
     this.heightTextField = 40,
     this.widthDivider = 0.5,
     this.widthTextFieldBorder = 0.5,
-    this.cornerRadiusL = 18,
-    this.cornerRadius = 5,
+    this.radiusCorner = 5,
+    this.radiusCornerL = 18,
   });
 }
 

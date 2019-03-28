@@ -132,12 +132,12 @@ class FBorderRadius extends BorderRadius {
 
 class FBorderRadiusCorner extends FBorderRadius {
   FBorderRadiusCorner()
-      : super.all(Radius.circular(FRes.dimens().cornerRadius));
+      : super.all(Radius.circular(FRes.dimens().radiusCorner));
 }
 
 class FBorderRadiusCornerL extends FBorderRadius {
   FBorderRadiusCornerL()
-      : super.all(Radius.circular(FRes.dimens().cornerRadiusL));
+      : super.all(Radius.circular(FRes.dimens().radiusCornerL));
 }
 
 class FDivider extends StatelessWidget {
