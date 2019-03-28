@@ -11,6 +11,15 @@ abstract class FState<T extends StatefulWidget> extends State<T> {
   @mustCallSuper
   @protected
   @override
+  Widget build(BuildContext context) {
+    return buildImpl(context);
+  }
+
+  Widget buildImpl(BuildContext context);
+
+  @mustCallSuper
+  @protected
+  @override
   void setState(fn) {
     if (mounted) {
       super.setState(fn);
