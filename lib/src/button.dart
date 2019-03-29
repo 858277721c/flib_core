@@ -40,6 +40,8 @@ class FButton {
     highlightElevation ??= elevation;
     disabledElevation ??= 0;
 
+    materialTapTargetSize ??= MaterialTapTargetSize.shrinkWrap;
+
     return RaisedButton(
       key: key,
       onPressed: onPressed,
@@ -84,6 +86,8 @@ class FButton {
     /// textColor
     textColor ??= FRes.colors().mainColor;
     disabledTextColor ??= FRes.colors().mainColorDisabled;
+
+    materialTapTargetSize ??= MaterialTapTargetSize.shrinkWrap;
 
     return FlatButton(
       key: key,

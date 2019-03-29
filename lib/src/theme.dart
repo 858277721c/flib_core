@@ -13,7 +13,6 @@ class FTheme {
       scaffoldBackgroundColor: FRes.colors().bgPage,
       buttonTheme: buttonThemeDataPrimary(),
       appBarTheme: appBarTheme(),
-      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
     );
   }
 
