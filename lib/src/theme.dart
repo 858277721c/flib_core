@@ -23,7 +23,7 @@ class FTheme {
       height: FRes.dimens().heightButton,
       padding: EdgeInsets.symmetric(vertical: 0, horizontal: 5),
       shape: RoundedRectangleBorder(
-        borderRadius: FBorderRadiusCorner(),
+        borderRadius: FBorderRadius.corner(),
       ),
     );
   }
