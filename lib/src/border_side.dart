@@ -27,7 +27,7 @@ class FBorderSide {
   }) {
     color ??= FRes.colors().divider;
 
-    return BorderSide(
+    return base(
       color: color,
       width: width,
       style: style,
@@ -41,7 +41,7 @@ class FBorderSide {
   }) {
     color ??= FRes.colors().mainColor;
 
-    return BorderSide(
+    return base(
       color: color,
       width: width,
       style: style,
@@ -55,7 +55,7 @@ class FBorderSide {
   }) {
     color ??= FRes.colors().mainColorDisabled;
 
-    return BorderSide(
+    return base(
       color: color,
       width: width,
       style: style,
