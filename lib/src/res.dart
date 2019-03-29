@@ -81,6 +81,7 @@ class FResColors {
 
   FResColors({
     this.mainColor = Colors.blue,
+    Color mainColorDisabled,
     this.bgPage = const Color(0xFFF7F7F7),
     this.textGrayL = const Color(0xFF333333),
     this.textGrayM = const Color(0xFF666666),
@@ -91,7 +92,8 @@ class FResColors {
     this.shadowText = const Color(0xFF333333),
     this.divider = const Color(0xFFE7E7F1),
   })  : assert(mainColor != null),
-        this.mainColorDisabled = mainColor.withOpacity(0.5),
+        this.mainColorDisabled =
+            mainColorDisabled ?? mainColor.withOpacity(0.4),
         this.textTabNormal = textTabNormal ?? textGrayS,
         this.textTabSelected = textTabSelected ?? mainColor;
 }
