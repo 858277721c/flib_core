@@ -47,7 +47,7 @@ class FTextStyle {
     );
   }
 
-  static TextStyle textGrayL({
+  static TextStyle grayL({
     Color color,
     double fontSize,
     TextDecoration decoration,
@@ -61,7 +61,7 @@ class FTextStyle {
     );
   }
 
-  static TextStyle textGrayM({
+  static TextStyle grayM({
     Color color,
     double fontSize,
     TextDecoration decoration,
@@ -75,7 +75,7 @@ class FTextStyle {
     );
   }
 
-  static TextStyle textGrayS({
+  static TextStyle grayS({
     Color color,
     double fontSize,
     TextDecoration decoration,
@@ -89,7 +89,7 @@ class FTextStyle {
     );
   }
 
-  static TextStyle textHint({
+  static TextStyle hint({
     Color color,
     double fontSize,
     TextDecoration decoration,
@@ -103,7 +103,7 @@ class FTextStyle {
     );
   }
 
-  static TextStyle textTitleBar({
+  static TextStyle titleBar({
     Color color,
     double fontSize,
     TextDecoration decoration,
@@ -118,14 +118,14 @@ class FTextStyle {
     );
   }
 
-  static TextStyle textTitleBarSub({
+  static TextStyle titleBarSub({
     Color color,
     double fontSize,
     TextDecoration decoration,
   }) {
     fontSize ??= FRes.titleBar().textSizeSub;
 
-    return textTitleBar(
+    return titleBar(
       color: color,
       fontSize: fontSize,
       decoration: decoration,
