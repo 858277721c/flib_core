@@ -118,6 +118,7 @@ class ModifiedOutlineButton extends MaterialButton {
     EdgeInsetsGeometry padding,
     ShapeBorder shape,
     Clip clipBehavior,
+    MaterialTapTargetSize materialTapTargetSize,
     @required Widget icon,
     @required Widget label,
   }) = _OutlineButtonWithIcon;
@@ -163,6 +164,7 @@ class ModifiedOutlineButton extends MaterialButton {
       padding: buttonTheme.getPadding(this),
       shape: buttonTheme.getShape(this),
       clipBehavior: clipBehavior,
+      materialTapTargetSize: buttonTheme.getMaterialTapTargetSize(this),
       child: child,
     );
   }
@@ -183,6 +185,7 @@ class ModifiedOutlineButton extends MaterialButton {
     properties.add(DiagnosticsProperty<Color>('highlightedBorderColor', highlightedBorderColor, defaultValue: null));
     properties.add(DiagnosticsProperty<EdgeInsetsGeometry>('padding', padding, defaultValue: null));
     properties.add(DiagnosticsProperty<ShapeBorder>('shape', shape, defaultValue: null));
+    properties.add(DiagnosticsProperty<MaterialTapTargetSize>('materialTapTargetSize', materialTapTargetSize, defaultValue: null));
   }
 }
 
@@ -207,6 +210,7 @@ class _OutlineButtonWithIcon extends ModifiedOutlineButton with MaterialButtonWi
     EdgeInsetsGeometry padding,
     ShapeBorder shape,
     Clip clipBehavior,
+    MaterialTapTargetSize materialTapTargetSize,
     @required Widget icon,
     @required Widget label,
   }) : assert(highlightElevation == null || highlightElevation >= 0.0),
@@ -228,6 +232,7 @@ class _OutlineButtonWithIcon extends ModifiedOutlineButton with MaterialButtonWi
          padding: padding,
          shape: shape,
          clipBehavior: clipBehavior,
+         materialTapTargetSize: materialTapTargetSize,
          child: Row(
            mainAxisSize: MainAxisSize.min,
            children: <Widget>[
@@ -257,6 +262,7 @@ class _OutlineButton extends StatefulWidget {
     this.padding,
     this.shape,
     this.clipBehavior,
+    this.materialTapTargetSize,
     this.child,
   }) : assert(highlightElevation != null && highlightElevation >= 0.0),
        assert(highlightedBorderColor != null),
@@ -277,6 +283,7 @@ class _OutlineButton extends StatefulWidget {
   final EdgeInsetsGeometry padding;
   final ShapeBorder shape;
   final Clip clipBehavior;
+  final MaterialTapTargetSize materialTapTargetSize;
   final Widget child;
 
   bool get enabled => onPressed != null;
@@ -408,6 +415,7 @@ class _OutlineButtonState extends State<_OutlineButton> with SingleTickerProvide
           ),
           clipBehavior: widget.clipBehavior,
           animationDuration: _kElevationDuration,
+          materialTapTargetSize: widget.materialTapTargetSize,
           child: widget.child,
         );
       },
