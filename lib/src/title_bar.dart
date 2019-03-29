@@ -200,26 +200,3 @@ class FTitleBarItemBack extends StatelessWidget {
     );
   }
 }
-
-/// 标题栏文字TextStyle
-class FTextStyleTitleBar extends TextStyle {
-  FTextStyleTitleBar({
-    Color color,
-    double fontSize,
-  }) : super(
-          color: color ?? FRes.titleBar().textColor,
-          fontSize: fontSize ?? FRes.titleBar().textSize,
-          decoration: TextDecoration.none,
-        );
-}
-
-/// 标题栏小一号文字TextStyle
-class FTextStyleTitleBarSub extends FTextStyleTitleBar {
-  FTextStyleTitleBarSub({
-    Color color,
-    double fontSize,
-  }) : super(
-          color: color,
-          fontSize: fontSize ?? FRes.titleBar().textSizeSub,
-        );
-}

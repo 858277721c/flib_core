@@ -102,4 +102,33 @@ class FTextStyle {
       decoration: decoration,
     );
   }
+
+  static TextStyle textTitleBar({
+    Color color,
+    double fontSize,
+    TextDecoration decoration,
+  }) {
+    color ??= FRes.titleBar().textColor;
+    fontSize ??= FRes.titleBar().textSize;
+
+    return base(
+      color: color,
+      fontSize: fontSize,
+      decoration: decoration,
+    );
+  }
+
+  static TextStyle textTitleBarSub({
+    Color color,
+    double fontSize,
+    TextDecoration decoration,
+  }) {
+    fontSize ??= FRes.titleBar().textSizeSub;
+
+    return textTitleBar(
+      color: color,
+      fontSize: fontSize,
+      decoration: decoration,
+    );
+  }
 }
