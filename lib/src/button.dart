@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'modified_outline_button.dart';
 import 'res.dart';
 
 class FButton {
@@ -25,7 +26,7 @@ class FButton {
     Clip clipBehavior = Clip.none,
     MaterialTapTargetSize materialTapTargetSize,
     Duration animationDuration,
-    Widget child,
+    @required Widget child,
   }) {
     /// textColor
     textColor ??= Colors.white;
@@ -109,7 +110,7 @@ class FButton {
     );
   }
 
-  static OutlineButton outline({
+  static MaterialButton outline({
     Key key,
     @required VoidCallback onPressed,
     ButtonTextTheme textTheme,
@@ -122,7 +123,8 @@ class FButton {
     EdgeInsetsGeometry padding,
     ShapeBorder shape,
     Clip clipBehavior = Clip.none,
-    Widget child,
+    MaterialTapTargetSize materialTapTargetSize,
+    @required Widget child,
 
     ///
     BorderSide borderSide,
@@ -136,7 +138,9 @@ class FButton {
     disabledBorderColor ??= FRes.colors().mainColorDisabled;
     highlightedBorderColor ??= FRes.colors().mainColor;
 
-    return OutlineButton(
+    materialTapTargetSize ??= MaterialTapTargetSize.shrinkWrap;
+
+    return ModifiedOutlineButton(
       key: key,
       onPressed: onPressed,
       textTheme: textTheme,
