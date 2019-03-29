@@ -36,14 +36,10 @@ class FBorderRadius extends BorderRadius {
       bottomRight: bottomRight ?? this.bottomRight,
     );
   }
-}
 
-class FBorderRadiusCorner extends FBorderRadius {
-  FBorderRadiusCorner()
-      : super.all(Radius.circular(FRes.dimens().radiusCorner));
-}
+  FBorderRadius.corner()
+      : this.all(Radius.circular(FRes.dimens().radiusCorner));
 
-class FBorderRadiusCornerL extends FBorderRadius {
-  FBorderRadiusCornerL()
-      : super.all(Radius.circular(FRes.dimens().radiusCornerL));
+  FBorderRadius.cornerL()
+      : this.all(Radius.circular(FRes.dimens().radiusCornerL));
 }
