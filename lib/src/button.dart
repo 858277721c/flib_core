@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'modified_outline_button.dart';
 import 'res.dart';
 
 class FButton {
@@ -88,8 +87,6 @@ class FButton {
     textColor ??= FRes.colors().mainColor;
     disabledTextColor ??= FRes.colors().mainColorDisabled;
 
-    materialTapTargetSize ??= MaterialTapTargetSize.shrinkWrap;
-
     return FlatButton(
       key: key,
       onPressed: onPressed,
@@ -110,7 +107,7 @@ class FButton {
     );
   }
 
-  static MaterialButton outline({
+  static OutlineButton outline({
     Key key,
     @required VoidCallback onPressed,
     ButtonTextTheme textTheme,
@@ -145,9 +142,7 @@ class FButton {
     disabledBorderColor ??= FRes.colors().mainColorDisabled;
     highlightedBorderColor ??= FRes.colors().mainColor;
 
-    materialTapTargetSize ??= MaterialTapTargetSize.shrinkWrap;
-
-    return ModifiedOutlineButton(
+    return OutlineButton(
       key: key,
       onPressed: onPressed,
       textTheme: textTheme,
@@ -160,7 +155,6 @@ class FButton {
       padding: padding,
       shape: shape,
       clipBehavior: clipBehavior,
-      materialTapTargetSize: materialTapTargetSize,
       child: child,
 
       ///

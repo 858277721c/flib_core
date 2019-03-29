@@ -24,6 +24,7 @@ class FTheme {
       shape: RoundedRectangleBorder(
         borderRadius: FBorderRadius.corner(),
       ),
+      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
     );
   }
 
