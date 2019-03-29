@@ -74,6 +74,7 @@ class ModifiedOutlineButton extends MaterialButton {
     EdgeInsetsGeometry padding,
     ShapeBorder shape,
     Clip clipBehavior = Clip.none,
+    MaterialTapTargetSize materialTapTargetSize,
     Widget child,
   }) : assert(highlightElevation == null || highlightElevation >= 0.0),
        super(
@@ -89,6 +90,7 @@ class ModifiedOutlineButton extends MaterialButton {
          padding: padding,
          shape: shape,
          clipBehavior: clipBehavior,
+         materialTapTargetSize: materialTapTargetSize,
          child: child,
        );
 

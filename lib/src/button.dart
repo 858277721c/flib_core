@@ -131,6 +131,13 @@ class FButton {
     Color disabledBorderColor,
     Color highlightedBorderColor,
   }) {
+    /// textColor
+    textColor ??= FRes.colors().mainColor;
+    disabledTextColor ??= FRes.colors().mainColorDisabled;
+
+    highlightElevation ??= 0;
+
+    /// border
     borderSide ??= BorderSide(
       color: FRes.colors().mainColor,
       width: 1,
@@ -153,6 +160,7 @@ class FButton {
       padding: padding,
       shape: shape,
       clipBehavior: clipBehavior,
+      materialTapTargetSize: materialTapTargetSize,
       child: child,
 
       ///
