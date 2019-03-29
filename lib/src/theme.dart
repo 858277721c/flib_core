@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'border_radius.dart';
 import 'res.dart';
-import 'res_ext.dart';
 
 class FTheme {
   FTheme._();
