@@ -4,7 +4,7 @@ class FTimeUtils {
   FTimeUtils._();
 
   /// 格式化剩余时间
-  static LeftTimeModel formatDuration(int milliSecond) {
+  static LeftTimeModel formatLeftTime(int milliSecond) {
     final int day = milliSecond ~/ aDay.inMilliseconds;
     final int dayLeft = milliSecond % aDay.inMilliseconds;
 
