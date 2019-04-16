@@ -10,12 +10,19 @@ class FLeftTime {
   final int minutes;
   final int seconds;
 
+  final Duration duration;
+
   FLeftTime({
     this.days,
     this.hours,
     this.minutes,
     this.seconds,
-  });
+  }) : this.duration = Duration(
+          days: days,
+          hours: hours,
+          minutes: minutes,
+          seconds: seconds,
+        );
 
   factory FLeftTime.parse(int milliSeconds) {
     final int day = milliSeconds ~/ aDay.inMilliseconds;
@@ -45,18 +52,27 @@ class FLeftTime {
   String toHHmmss({String separator = ':'}) {
     assert(separator != null);
 
-    final int hs = hours + days * 24;
-    return _twoDigits(hs) +
-        separator +
-        _twoDigits(minutes) +
-        separator +
-        _twoDigits(seconds);
+    final int h = duration.inHours;
+    if (h > 0) {
+      final StringBuffer buffer = new StringBuffer();
+      buffer.write(_twoDigits(h));
+      buffer.write(separator);
+      buffer.write(_twoDigits(minutes));
+      buffer.write(separator);
+      buffer.write(_twoDigits(seconds));
+      return buffer.toString();
+    } else {
+      return tommss(separator: separator);
+    }
   }
 
   String tommss({String separator = ':'}) {
     assert(separator != null);
 
-    final int ms = minutes + (hours * 60) + (days * 24 * 60);
-    return _twoDigits(ms) + separator + _twoDigits(seconds);
+    final StringBuffer buffer = new StringBuffer();
+    buffer.write(_twoDigits(duration.inMinutes));
+    buffer.write(separator);
+    buffer.write(_twoDigits(seconds));
+    return buffer.toString();
   }
 }
