@@ -1,6 +1,31 @@
 import 'package:flutter/material.dart';
 
-class FStatefulWidgetController {
+abstract class FWidgetController {
+  static FStatelessWidgetController stateless() {
+    return _SimpleStatelessWidgetController();
+  }
+
+  static FStatefulWidgetController stateful() {
+    return _SimpleStatefulWidgetController();
+  }
+
+  Widget init(Widget initWidget);
+}
+
+abstract class FStatelessWidgetController extends FWidgetController {}
+
+abstract class FStatefulWidgetController extends FWidgetController {
+  bool update(Widget updateWidget);
+}
+
+class _SimpleStatelessWidgetController implements FStatelessWidgetController {
+  @override
+  Widget init(Widget initWidget) {
+    return initWidget;
+  }
+}
+
+class _SimpleStatefulWidgetController implements FStatefulWidgetController {
   final GlobalKey<_InternalStatefulWidgetState> _globalKey = GlobalKey();
   Widget _widget;
 
@@ -10,6 +35,7 @@ class FStatefulWidgetController {
   }
 
   /// 创建并返回一个StatefulWidget对象，传入的Widget对象为需要展示的UI
+  @override
   StatefulWidget init(Widget initWidget) {
     _setWidget(initWidget);
 
@@ -22,6 +48,7 @@ class FStatefulWidgetController {
   }
 
   /// 用传入的Widget对象更新UI
+  @override
   bool update(Widget updateWidget) {
     _setWidget(updateWidget);
 

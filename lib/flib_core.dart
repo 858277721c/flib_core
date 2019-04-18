@@ -6,7 +6,7 @@ export 'src/button.dart';
 export 'src/core.dart';
 export 'src/res.dart';
 export 'src/res_ext.dart';
-export 'src/stateful_widget_controller.dart';
+export 'src/widget_controller.dart';
 export 'src/system_ui.dart';
 export 'src/text_style.dart';
 export 'src/theme.dart';
