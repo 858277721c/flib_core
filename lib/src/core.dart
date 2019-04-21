@@ -1,3 +1,4 @@
+import 'package:flib_lifecycle/flib_lifecycle.dart';
 import 'package:flutter/material.dart';
 
 abstract class FApplication {
@@ -15,8 +16,12 @@ abstract class FApplication {
   Future<bool> initializeImpl();
 }
 
-abstract class FState<T extends StatefulWidget> extends State<T> {
-  bool _paused = false;
+abstract class FState<T extends StatefulWidget> extends State<T>
+    implements FLifecycleOwner {
+  final SimpleLifecycle _lifecycle = SimpleLifecycle();
+  bool _started;
+
+  bool get started => _started;
 
   /// 查找某个State
   T getState<T extends State>() {
@@ -28,17 +33,13 @@ abstract class FState<T extends StatefulWidget> extends State<T> {
     return state == null ? null : state as T;
   }
 
-  @mustCallSuper
-  @protected
   @override
-  Widget build(BuildContext context) {
-    return buildImpl(context);
+  FLifecycle getLifecycle() {
+    return _lifecycle;
   }
 
-  Widget buildImpl(BuildContext context);
-
-  @mustCallSuper
   @protected
+  @mustCallSuper
   @override
   void setState(fn) {
     if (mounted) {
@@ -46,25 +47,64 @@ abstract class FState<T extends StatefulWidget> extends State<T> {
     }
   }
 
-  @mustCallSuper
   @protected
+  @mustCallSuper
+  @override
+  void initState() {
+    super.initState();
+    _lifecycle.handleLifecycleEvent(FLifecycleEvent.onCreate);
+  }
+
+  @protected
+  @mustCallSuper
   @override
   void deactivate() {
     super.deactivate();
-    _paused = !_paused;
+    _started = !_started;
+    _notifyStartOrStop();
+  }
 
-    if (_paused) {
-      onPause();
+  @protected
+  @mustCallSuper
+  @override
+  void dispose() {
+    super.dispose();
+    _lifecycle.handleLifecycleEvent(FLifecycleEvent.onDestroy);
+  }
+
+  @protected
+  @mustCallSuper
+  @override
+  Widget build(BuildContext context) {
+    if (_started == null) {
+      _started = true;
+      _notifyStartOrStop();
+    }
+    return buildImpl(context);
+  }
+
+  @protected
+  Widget buildImpl(BuildContext context);
+
+  void _notifyStartOrStop() {
+    if (_started == null) {
+      return;
+    }
+
+    if (_started) {
+      onStart();
+      _lifecycle.handleLifecycleEvent(FLifecycleEvent.onStart);
     } else {
-      onResume();
+      onStop();
+      _lifecycle.handleLifecycleEvent(FLifecycleEvent.onStop);
     }
   }
 
-  @mustCallSuper
   @protected
-  void onPause() {}
+  @mustCallSuper
+  void onStart() {}
 
-  @mustCallSuper
   @protected
-  void onResume() {}
+  @mustCallSuper
+  void onStop() {}
 }
