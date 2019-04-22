@@ -125,6 +125,8 @@ abstract class FAccessTargetState<T extends StatefulWidget, S extends State>
     }
   }
 
+  @protected
+  @mustCallSuper
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
