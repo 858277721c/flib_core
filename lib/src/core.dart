@@ -24,8 +24,10 @@ abstract class FState<T extends StatefulWidget> extends State<T>
   bool get started => _started;
 
   /// 查找某个State
-  T getState<T extends State>() {
-    assert(T != State);
+  S getState<S extends State>() {
+    if (S == State) {
+      throw Exception('Generics "S" are not specified');
+    }
     return context == null
         ? null
         : context.ancestorStateOfType(TypeMatcher<T>());
@@ -112,6 +114,16 @@ abstract class FAccessTargetState<T extends StatefulWidget, S extends State>
   S _targetState;
 
   S get targetState => _targetState;
+
+  @protected
+  @mustCallSuper
+  @override
+  void initState() {
+    super.initState();
+    if (S == State) {
+      throw Exception('Generics "S" are not specified');
+    }
+  }
 
   @override
   void didChangeDependencies() {
