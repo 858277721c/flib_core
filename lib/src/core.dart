@@ -26,11 +26,9 @@ abstract class FState<T extends StatefulWidget> extends State<T>
   /// 查找某个State
   T getState<T extends State>() {
     assert(T != State);
-    if (context == null) {
-      return null;
-    }
-    final State state = context.ancestorStateOfType(TypeMatcher<T>());
-    return state == null ? null : state as T;
+    return context == null
+        ? null
+        : context.ancestorStateOfType(TypeMatcher<T>());
   }
 
   @override
@@ -107,4 +105,27 @@ abstract class FState<T extends StatefulWidget> extends State<T>
   @protected
   @mustCallSuper
   void onStop() {}
+}
+
+abstract class FAccessTargetState<T extends StatefulWidget, S extends State>
+    extends FState<T> {
+  S _targetState;
+
+  S get targetState => _targetState;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    final S state = getState<S>();
+    if (state != null) {
+      if (_targetState != state) {
+        _targetState = state;
+        onTargetState(state);
+      }
+    }
+  }
+
+  @protected
+  void onTargetState(S state);
 }
