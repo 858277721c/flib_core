@@ -30,7 +30,7 @@ abstract class FState<T extends StatefulWidget> extends State<T>
     }
     return context == null
         ? null
-        : context.ancestorStateOfType(TypeMatcher<T>());
+        : context.ancestorStateOfType(TypeMatcher<S>());
   }
 
   @override
