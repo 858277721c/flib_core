@@ -92,11 +92,11 @@ abstract class FState<T extends StatefulWidget> extends State<T>
     }
 
     if (_started) {
-      onStart();
       _lifecycle.handleLifecycleEvent(FLifecycleEvent.onStart);
+      onStart();
     } else {
-      onStop();
       _lifecycle.handleLifecycleEvent(FLifecycleEvent.onStop);
+      onStop();
     }
   }
 
