@@ -107,7 +107,7 @@ class FTitleBarItem extends StatelessWidget {
   final AlignmentGeometry alignment;
   final EdgeInsetsGeometry padding;
   final EdgeInsetsGeometry margin;
-  final OnTapTitleBarItem onTap;
+  final VoidCallback onPressed;
 
   FTitleBarItem(
     this.child, {
@@ -117,7 +117,7 @@ class FTitleBarItem extends StatelessWidget {
     AlignmentGeometry alignment,
     this.padding = const EdgeInsets.only(left: 5, right: 5),
     this.margin,
-    this.onTap,
+    this.onPressed,
   })  : this.color = color ?? Colors.transparent,
         this.minWidth = minWidth ?? FRes.titleBar().minWidthItem,
         this.maxWidth = maxWidth ?? double.infinity,
@@ -141,10 +141,10 @@ class FTitleBarItem extends StatelessWidget {
           ],
           alignment: alignment,
         ),
-        onTap: onTap == null
+        onTap: onPressed == null
             ? null
             : () {
-                onTap(context);
+                onPressed();
               },
       ),
     );
@@ -167,9 +167,9 @@ class FTitleBarItem extends StatelessWidget {
 
 /// 标题栏返回item
 class FTitleBarItemBack extends StatelessWidget {
-  final OnTapTitleBarItem onTap;
+  final VoidCallback onPressed;
 
-  FTitleBarItemBack({this.onTap});
+  FTitleBarItemBack({this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -193,7 +193,7 @@ class FTitleBarItemBack extends StatelessWidget {
     assert(child != null);
     return FTitleBarItem(
       child,
-      onTap: onTap ??
+      onPressed: onPressed ??
           (context) {
             Navigator.maybePop(context);
           },
