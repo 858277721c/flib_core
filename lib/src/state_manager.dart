@@ -50,9 +50,12 @@ class FStateManager {
   }
 
   FState getLastState() {
-    return _mapState.isEmpty
-        ? null
-        : _mapState.entries.elementAt(_mapState.length - 1).key;
+    if (_mapState.isEmpty) {
+      return null;
+    }
+
+    final List<FState> list = _mapState.keys.toList(growable: false);
+    return list[list.length - 1];
   }
 }
 
