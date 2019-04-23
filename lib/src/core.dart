@@ -5,6 +5,7 @@ import 'state_manager.dart';
 
 abstract class FApplication {
   bool _initialized = false;
+  BuildContext context;
 
   bool get initialized => _initialized;
 
@@ -16,6 +17,14 @@ abstract class FApplication {
 
   @protected
   Future<bool> initializeImpl();
+
+  void clearRoute() {
+    assert(context != null);
+    final NavigatorState navigator = Navigator.of(context);
+    while (navigator.canPop()) {
+      navigator.pop();
+    }
+  }
 }
 
 abstract class FState<T extends StatefulWidget> extends State<T>
