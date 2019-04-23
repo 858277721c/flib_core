@@ -18,8 +18,10 @@ abstract class FApplication {
   @protected
   Future<bool> initializeImpl();
 
-  void clearRoute() {
-    assert(context != null);
+  void clearRoute(BuildContext context) {
+    if (context == null) {
+      return;
+    }
     final NavigatorState navigator = Navigator.of(context);
     while (navigator.canPop()) {
       navigator.pop();
