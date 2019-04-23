@@ -1,6 +1,6 @@
-# flib_core
+# About
 
-# install
+## Install
 ```
   flib_core:
     git:
