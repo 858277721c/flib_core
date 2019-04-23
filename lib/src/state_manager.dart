@@ -42,11 +42,17 @@ class FStateManager {
     final List<T> result = [];
     final List<FState> list = _mapState.keys.toList(growable: false);
     list.forEach((item) {
-      if (item.runtimeType == T) {
+      if (item is T) {
         result.add(item);
       }
     });
     return result;
+  }
+
+  FState getLastState() {
+    return _mapState.isEmpty
+        ? null
+        : _mapState.entries.elementAt(_mapState.length - 1).key;
   }
 }
 
