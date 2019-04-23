@@ -34,7 +34,7 @@ class FStateManager {
   void _removeState(FState state) {
     final _StateWrapper wrapper = _mapState.remove(state);
     if (wrapper != null) {
-      wrapper.dispose();
+      wrapper.destroy();
     }
   }
 
@@ -59,25 +59,20 @@ class FStateManager {
   }
 }
 
-class _StateWrapper {
+class _StateWrapper extends FLifecycleWrapper {
   final FState state;
-  final FLifecycle lifecycle;
 
   _StateWrapper({
     this.state,
-    this.lifecycle,
-  }) : assert(lifecycle != null) {
-    lifecycle.addObserver(_lifecycleObserver);
-  }
+    FLifecycle lifecycle,
+  })  : assert(lifecycle != null),
+        super(lifecycle);
 
-  void _lifecycleObserver(FLifecycleEvent event, FLifecycle lifecycle) {
-    if (event == FLifecycleEvent.onDestroy) {
-      dispose();
-      FStateManager.singleton._removeState(state);
-    }
-  }
+  @override
+  void onLifecycleEvent(FLifecycleEvent event) {}
 
-  void dispose() {
-    lifecycle.removeObserver(_lifecycleObserver);
+  @override
+  void onDestroy() {
+    FStateManager.singleton._removeState(state);
   }
 }
