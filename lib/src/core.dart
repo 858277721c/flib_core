@@ -1,6 +1,8 @@
 import 'package:flib_lifecycle/flib_lifecycle.dart';
 import 'package:flutter/material.dart';
 
+import 'state_manager.dart';
+
 abstract class FApplication {
   bool _initialized = false;
 
@@ -53,6 +55,7 @@ abstract class FState<T extends StatefulWidget> extends State<T>
   void initState() {
     super.initState();
     _lifecycle.handleLifecycleEvent(FLifecycleEvent.onCreate);
+    FStateManager.singleton.addState(this);
   }
 
   @protected
