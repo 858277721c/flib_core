@@ -24,7 +24,17 @@ abstract class FBusiness {
 
 abstract class FBusinessState<T extends StatefulWidget, B extends FBusiness>
     extends FState<T> {
-  B get business;
+  B _business;
+
+  B get business {
+    if (_business == null) {
+      _business = createBusiness();
+      assert(_business != null);
+    }
+    return _business;
+  }
+
+  B createBusiness();
 
   @protected
   @mustCallSuper
