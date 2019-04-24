@@ -24,9 +24,7 @@ abstract class FBusiness {
 
 abstract class FBusinessState<T extends StatefulWidget, B extends FBusiness>
     extends FState<T> {
-  final B business;
-
-  FBusinessState(this.business);
+  B get business;
 
   @protected
   @mustCallSuper
