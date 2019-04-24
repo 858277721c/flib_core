@@ -81,7 +81,9 @@ class FSimpleTitleBar extends FTitleBar {
       alignment: alignment,
       width: double.infinity,
       height: double.infinity,
-      child: child,
+      child: Stack(
+        children: <Widget>[child],
+      ),
     ));
   }
 
