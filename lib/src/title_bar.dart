@@ -77,13 +77,13 @@ class FSimpleTitleBar extends FTitleBar {
       return;
     }
     assert(alignment != null);
-    _list.add(Container(
-      alignment: alignment,
+    _list.add(SizedBox(
+      child: Align(
+        child: child,
+        alignment: alignment,
+      ),
       width: double.infinity,
       height: double.infinity,
-      child: Stack(
-        children: <Widget>[child],
-      ),
     ));
   }
 
