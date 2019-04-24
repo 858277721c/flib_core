@@ -69,9 +69,6 @@ class _StateWrapper extends FLifecycleWrapper {
         super(lifecycle);
 
   @override
-  void onLifecycleEvent(FLifecycleEvent event) {}
-
-  @override
   void onDestroy() {
     FStateManager.singleton._removeState(state);
   }

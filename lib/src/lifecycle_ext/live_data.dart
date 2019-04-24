@@ -101,9 +101,6 @@ class _ObserverWrapper extends FLifecycleWrapper {
   }
 
   @override
-  void onLifecycleEvent(FLifecycleEvent event) {}
-
-  @override
   void onDestroy() {
     liveData.removeObserver(observer);
   }
