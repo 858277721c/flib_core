@@ -31,10 +31,8 @@ abstract class FApplication {
 
 abstract class FState<T extends StatefulWidget> extends State<T>
     implements FLifecycleOwner {
-  final SimpleLifecycle _lifecycle = SimpleLifecycle();
-  bool _started;
-
-  bool get started => _started;
+  final FStateLifecycleAdapter _stateLifecycleAdapter =
+      FStateLifecycleAdapter();
 
   /// 查找某个State
   S getState<S extends State>() {
@@ -48,7 +46,7 @@ abstract class FState<T extends StatefulWidget> extends State<T>
 
   @override
   FLifecycle getLifecycle() {
-    return _lifecycle;
+    return _stateLifecycleAdapter.getLifecycle();
   }
 
   @protected
@@ -65,7 +63,7 @@ abstract class FState<T extends StatefulWidget> extends State<T>
   @override
   void initState() {
     super.initState();
-    _lifecycle.handleLifecycleEvent(FLifecycleEvent.onCreate);
+    _stateLifecycleAdapter.initState();
     FStateManager.singleton.addState(this);
   }
 
@@ -74,8 +72,7 @@ abstract class FState<T extends StatefulWidget> extends State<T>
   @override
   void deactivate() {
     super.deactivate();
-    _started = !_started;
-    _notifyStartOrStop();
+    _stateLifecycleAdapter.deactivate();
   }
 
   @protected
@@ -83,47 +80,22 @@ abstract class FState<T extends StatefulWidget> extends State<T>
   @override
   void dispose() {
     super.dispose();
-    _lifecycle.handleLifecycleEvent(FLifecycleEvent.onDestroy);
+    _stateLifecycleAdapter.dispose();
   }
 
   @protected
   @mustCallSuper
   @override
   Widget build(BuildContext context) {
-    if (_started == null) {
-      _started = true;
-      _notifyStartOrStop();
-    }
+    _stateLifecycleAdapter.build(context);
     return buildImpl(context);
   }
 
   @protected
   Widget buildImpl(BuildContext context);
-
-  void _notifyStartOrStop() {
-    if (_started == null) {
-      return;
-    }
-
-    if (_started) {
-      _lifecycle.handleLifecycleEvent(FLifecycleEvent.onStart);
-      onStart();
-    } else {
-      _lifecycle.handleLifecycleEvent(FLifecycleEvent.onStop);
-      onStop();
-    }
-  }
-
-  @protected
-  @mustCallSuper
-  void onStart() {}
-
-  @protected
-  @mustCallSuper
-  void onStop() {}
 }
 
-abstract class FAccessTargetState<T extends StatefulWidget, S extends State>
+abstract class FTargetState<T extends StatefulWidget, S extends State>
     extends FState<T> {
   S _targetState;
 
