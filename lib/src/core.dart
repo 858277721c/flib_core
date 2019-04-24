@@ -49,6 +49,11 @@ abstract class FState<T extends StatefulWidget> extends State<T>
     return _stateLifecycleAdapter.getLifecycle();
   }
 
+  /// 刷新当前ui
+  void reBuild() {
+    setState(() {});
+  }
+
   @protected
   @mustCallSuper
   @override
