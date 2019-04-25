@@ -52,12 +52,12 @@ class FLiveData<T> {
 
     assert(notifyLazy != null);
     final _ObserverWrapper<T> wrapper = notifyLazy
-        ? _LazyObserverWrapper(
+        ? _LazyObserverWrapper<T>(
             observer: observer,
             lifecycle: lifecycle,
             liveData: this,
           )
-        : _ObserverWrapper(
+        : _ObserverWrapper<T>(
             observer: observer,
             lifecycle: lifecycle,
             liveData: this,
