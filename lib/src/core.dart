@@ -1,4 +1,3 @@
-import 'package:flib_core/src/lifecycle_ext/business.dart';
 import 'package:flib_core/src/state_manager.dart';
 import 'package:flib_lifecycle/flib_lifecycle.dart';
 import 'package:flutter/material.dart';
@@ -132,6 +131,26 @@ abstract class FTargetState<T extends StatefulWidget, S extends State>
 
   @protected
   void onTargetState(S state);
+}
+
+abstract class FBusiness {
+  FBusiness(FLifecycleOwner lifecycleOwner) {
+    if (lifecycleOwner != null) {
+      final FLifecycle lifecycle = lifecycleOwner.getLifecycle();
+      assert(lifecycle != null);
+      if (lifecycle.getCurrentState() == FLifecycleState.destroyed) {
+        throw Exception('lifecycle is destroyed');
+      }
+
+      lifecycle.addObserver((event, lifecycle) {
+        if (event == FLifecycleEvent.onDestroy) {
+          onDestroy();
+        }
+      });
+    }
+  }
+
+  void onDestroy() {}
 }
 
 abstract class FBusinessState<T extends StatefulWidget, B extends FBusiness>
