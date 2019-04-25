@@ -99,6 +99,41 @@ abstract class FState<T extends StatefulWidget> extends State<T>
   Widget buildImpl(BuildContext context);
 }
 
+abstract class FTargetState<T extends StatefulWidget, S extends State>
+    extends FState<T> {
+  S _targetState;
+
+  S get targetState => _targetState;
+
+  @protected
+  @mustCallSuper
+  @override
+  void initState() {
+    super.initState();
+    if (S == State) {
+      throw Exception('Generics "S" are not specified');
+    }
+  }
+
+  @protected
+  @mustCallSuper
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    final S state = getState<S>();
+    if (state != null) {
+      if (_targetState != state) {
+        _targetState = state;
+        onTargetState(state);
+      }
+    }
+  }
+
+  @protected
+  void onTargetState(S state);
+}
+
 abstract class FBusinessState<T extends StatefulWidget, B extends FBusiness>
     extends FState<T> {
   B _business;
@@ -133,39 +168,4 @@ abstract class FRouteState<T extends StatefulWidget, B extends FBusiness>
     super.initState();
     FStateManager.singleton.addState(this);
   }
-}
-
-abstract class FTargetState<T extends StatefulWidget, S extends State>
-    extends FState<T> {
-  S _targetState;
-
-  S get targetState => _targetState;
-
-  @protected
-  @mustCallSuper
-  @override
-  void initState() {
-    super.initState();
-    if (S == State) {
-      throw Exception('Generics "S" are not specified');
-    }
-  }
-
-  @protected
-  @mustCallSuper
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-
-    final S state = getState<S>();
-    if (state != null) {
-      if (_targetState != state) {
-        _targetState = state;
-        onTargetState(state);
-      }
-    }
-  }
-
-  @protected
-  void onTargetState(S state);
 }

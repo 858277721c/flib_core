@@ -10,29 +10,12 @@ abstract class FBusiness {
       }
 
       lifecycle.addObserver((event, lifecycle) {
-        switch (event) {
-          case FLifecycleEvent.onCreate:
-            onCreate();
-            break;
-          case FLifecycleEvent.onStart:
-            onStart();
-            break;
-          case FLifecycleEvent.onStop:
-            onStop();
-            break;
-          case FLifecycleEvent.onDestroy:
-            onDestroy();
-            break;
+        if (event == FLifecycleEvent.onDestroy) {
+          onDestroy();
         }
       });
     }
   }
-
-  void onCreate();
-
-  void onStart() {}
-
-  void onStop() {}
 
   void onDestroy() {}
 }
