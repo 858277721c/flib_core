@@ -23,7 +23,7 @@ class FEventBus {
   ///
   /// - [T] 需要观察的事件类型，如果不指定，则表示观察所有事件
   /// - [onData] 观察者
-  /// - [lifecycleOwner] 生命周期持有者
+  /// - [lifecycleOwner] 生命周期持有者，如果为null，则表示观察者不监听生命周期，不会自动被移除
   ObserverCanceller addObserver<T>(
     void onData(T event),
     FLifecycleOwner lifecycleOwner,
