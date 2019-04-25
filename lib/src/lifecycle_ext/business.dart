@@ -1,6 +1,4 @@
-import 'package:flib_core/src/core.dart';
 import 'package:flib_lifecycle/flib_lifecycle.dart';
-import 'package:flutter/material.dart';
 
 abstract class FBusiness {
   FBusiness(FLifecycleOwner lifecycleOwner) {
@@ -37,29 +35,4 @@ abstract class FBusiness {
   void onStop() {}
 
   void onDestroy() {}
-}
-
-abstract class FBusinessState<T extends StatefulWidget, B extends FBusiness>
-    extends FState<T> {
-  B _business;
-
-  B get business {
-    if (_business == null) {
-      _business = createBusiness();
-      assert(_business != null);
-    }
-    return _business;
-  }
-
-  B createBusiness();
-
-  @protected
-  @mustCallSuper
-  @override
-  void initState() {
-    super.initState();
-    if (B == FBusiness) {
-      throw Exception('Generics "B" are not specified');
-    }
-  }
 }

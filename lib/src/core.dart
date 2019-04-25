@@ -1,7 +1,7 @@
+import 'package:flib_core/src/lifecycle_ext/business.dart';
+import 'package:flib_core/src/state_manager.dart';
 import 'package:flib_lifecycle/flib_lifecycle.dart';
 import 'package:flutter/material.dart';
-
-import 'state_manager.dart';
 
 abstract class FApplication {
   bool _initialized = false;
@@ -69,7 +69,6 @@ abstract class FState<T extends StatefulWidget> extends State<T>
   void initState() {
     super.initState();
     _stateLifecycleAdapter.initState();
-    FStateManager.singleton.addState(this);
   }
 
   @protected
@@ -98,6 +97,42 @@ abstract class FState<T extends StatefulWidget> extends State<T>
 
   @protected
   Widget buildImpl(BuildContext context);
+}
+
+abstract class FBusinessState<T extends StatefulWidget, B extends FBusiness>
+    extends FState<T> {
+  B _business;
+
+  B get business {
+    if (_business == null) {
+      _business = createBusiness();
+      assert(_business != null);
+    }
+    return _business;
+  }
+
+  B createBusiness();
+
+  @protected
+  @mustCallSuper
+  @override
+  void initState() {
+    super.initState();
+    if (B == FBusiness) {
+      throw Exception('Generics "B" are not specified');
+    }
+  }
+}
+
+abstract class FRouteState<T extends StatefulWidget, B extends FBusiness>
+    extends FBusinessState<T, B> {
+  @protected
+  @mustCallSuper
+  @override
+  void initState() {
+    super.initState();
+    FStateManager.singleton.addState(this);
+  }
 }
 
 abstract class FTargetState<T extends StatefulWidget, S extends State>

@@ -5,11 +5,11 @@ import 'core.dart';
 class FStateManager {
   static final FStateManager singleton = FStateManager._();
 
-  final Map<FState, _StateWrapper> _mapState = {};
+  final Map<FRouteState, _StateWrapper> _mapState = {};
 
   FStateManager._();
 
-  void addState(FState state) {
+  void addState(FRouteState state) {
     assert(state != null);
     if (!state.mounted) {
       return;
@@ -31,16 +31,16 @@ class FStateManager {
     _mapState[state] = wrapper;
   }
 
-  void _removeState(FState state) {
+  void _removeState(FRouteState state) {
     final _StateWrapper wrapper = _mapState.remove(state);
     if (wrapper != null) {
       wrapper.destroy();
     }
   }
 
-  List<T> getState<T extends FState>() {
+  List<T> getState<T extends FRouteState>() {
     final List<T> result = [];
-    final List<FState> list = _mapState.keys.toList(growable: false);
+    final List<FRouteState> list = _mapState.keys.toList(growable: false);
     list.forEach((item) {
       if (item is T) {
         result.add(item);
@@ -49,18 +49,18 @@ class FStateManager {
     return result;
   }
 
-  FState getLastState() {
+  FRouteState getLastState() {
     if (_mapState.isEmpty) {
       return null;
     }
 
-    final List<FState> list = _mapState.keys.toList(growable: false);
+    final List<FRouteState> list = _mapState.keys.toList(growable: false);
     return list[list.length - 1];
   }
 }
 
 class _StateWrapper extends FLifecycleWrapper {
-  final FState state;
+  final FRouteState state;
 
   _StateWrapper({
     this.state,
