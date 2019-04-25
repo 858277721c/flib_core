@@ -37,32 +37,6 @@ class FLiveData<T> {
 
   /// 添加观察者
   ///
-  /// 添加之后不会自动移除，如果要移除观察者需要调用[removeObserver]方法
-  ///
-  /// - [observer] 观察者
-  /// - [notifyAfterAdded] 添加观察者之后，如果[_value]不为null的话是否立即通知当前添加的观察者，默认true-是
-  void addObserverForever(
-    FLiveDataObserver<T> observer, {
-    bool notifyAfterAdded = true,
-  }) {
-    if (_mapObserver.containsKey(observer)) {
-      return;
-    }
-
-    final _ObserverWrapper<T> wrapper = _ObserverWrapper<T>(
-      observer: observer,
-      lifecycle: null,
-      liveData: this,
-    );
-
-    _addObserverInternal(
-      wrapper: wrapper,
-      notifyAfterAdded: notifyAfterAdded,
-    );
-  }
-
-  /// 添加观察者
-  ///
   /// 当[lifecycleOwner]对象分发[FLifecycleEvent.onDestroy]事件后，会自动移除观察者
   ///
   /// - [observer] 观察者
@@ -79,12 +53,14 @@ class FLiveData<T> {
       return;
     }
 
-    assert(lifecycleOwner != null);
-    final FLifecycle lifecycle = lifecycleOwner.getLifecycle();
-    assert(lifecycle != null);
+    FLifecycle lifecycle;
+    if (lifecycleOwner != null) {
+      lifecycle = lifecycleOwner.getLifecycle();
+      assert(lifecycle != null);
+    }
 
     assert(notifyLazy != null);
-    final _ObserverWrapper<T> wrapper = notifyLazy
+    final _ObserverWrapper<T> wrapper = (notifyLazy && lifecycle != null)
         ? _LazyObserverWrapper<T>(
             observer: observer,
             lifecycle: lifecycle,
@@ -96,21 +72,9 @@ class FLiveData<T> {
             liveData: this,
           );
 
-    _addObserverInternal(
-      wrapper: wrapper,
-      notifyAfterAdded: notifyAfterAdded,
-    );
-  }
+    _mapObserver[observer] = wrapper;
 
-  void _addObserverInternal({
-    _ObserverWrapper<T> wrapper,
-    bool notifyAfterAdded,
-  }) {
-    assert(wrapper != null);
     assert(notifyAfterAdded != null);
-
-    _mapObserver[wrapper.observer] = wrapper;
-
     if (notifyAfterAdded) {
       if (_value != null) {
         wrapper.notifyValue(_value);
