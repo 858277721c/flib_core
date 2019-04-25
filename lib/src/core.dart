@@ -129,6 +129,7 @@ abstract class FTargetState<T extends StatefulWidget, S extends State>
     }
   }
 
+  /// 获取到目标State后回调此方法
   @protected
   void onTargetState(S state);
 }
@@ -150,6 +151,7 @@ abstract class FBusiness {
     }
   }
 
+  /// 业务类销毁
   void onDestroy() {}
 }
 
@@ -157,6 +159,7 @@ abstract class FBusinessState<T extends StatefulWidget, B extends FBusiness>
     extends FState<T> {
   B _business;
 
+  /// 返回业务类对象
   B get business {
     if (_business == null) {
       _business = createBusiness();
@@ -165,6 +168,7 @@ abstract class FBusinessState<T extends StatefulWidget, B extends FBusiness>
     return _business;
   }
 
+  /// 返回一个业务类对象
   B createBusiness();
 
   @protected
