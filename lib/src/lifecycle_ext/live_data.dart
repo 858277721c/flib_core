@@ -75,7 +75,7 @@ class FLiveData<T> {
 
   /// 移除观察者
   void removeObserver(FLiveDataObserver<T> observer) {
-    final _ObserverWrapper wrapper = _mapObserver.remove(observer);
+    final _ObserverWrapper<T> wrapper = _mapObserver.remove(observer);
     if (wrapper != null) {
       wrapper.destroy();
     }
@@ -84,7 +84,7 @@ class FLiveData<T> {
 
 class _ObserverWrapper<T> extends FLifecycleWrapper {
   final FLiveDataObserver<T> observer;
-  final FLiveData liveData;
+  final FLiveData<T> liveData;
 
   _ObserverWrapper({
     this.observer,
@@ -114,7 +114,7 @@ class _LazyObserverWrapper<T> extends _ObserverWrapper<T> {
 
   _LazyObserverWrapper({
     FLiveDataObserver<T> observer,
-    FLiveData liveData,
+    FLiveData<T> liveData,
     FLifecycle lifecycle,
   }) : super(
           observer: observer,
