@@ -45,11 +45,19 @@ class FLiveData<T> {
     FLiveDataObserver<T> observer, {
     bool notifyAfterAdded = true,
   }) {
-    addObserver(
-      observer,
-      null,
+    if (_mapObserver.containsKey(observer)) {
+      return;
+    }
+
+    final _ObserverWrapper<T> wrapper = _ObserverWrapper<T>(
+      observer: observer,
+      lifecycle: null,
+      liveData: this,
+    );
+
+    _addObserverInternal(
+      wrapper: wrapper,
       notifyAfterAdded: notifyAfterAdded,
-      notifyLazy: false,
     );
   }
 
@@ -67,18 +75,15 @@ class FLiveData<T> {
     bool notifyAfterAdded = true,
     bool notifyLazy = true,
   }) {
-    assert(observer != null);
-    assert(lifecycleOwner != null);
-    assert(notifyAfterAdded != null);
-    assert(notifyLazy != null);
-
     if (_mapObserver.containsKey(observer)) {
       return;
     }
 
+    assert(lifecycleOwner != null);
     final FLifecycle lifecycle = lifecycleOwner.getLifecycle();
     assert(lifecycle != null);
 
+    assert(notifyLazy != null);
     final _ObserverWrapper<T> wrapper = notifyLazy
         ? _LazyObserverWrapper<T>(
             observer: observer,
@@ -91,7 +96,20 @@ class FLiveData<T> {
             liveData: this,
           );
 
-    _mapObserver[observer] = wrapper;
+    _addObserverInternal(
+      wrapper: wrapper,
+      notifyAfterAdded: notifyAfterAdded,
+    );
+  }
+
+  void _addObserverInternal({
+    _ObserverWrapper<T> wrapper,
+    bool notifyAfterAdded,
+  }) {
+    assert(wrapper != null);
+    assert(notifyAfterAdded != null);
+
+    _mapObserver[wrapper.observer] = wrapper;
 
     if (notifyAfterAdded) {
       if (_value != null) {
