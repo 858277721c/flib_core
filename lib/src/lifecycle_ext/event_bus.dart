@@ -23,7 +23,7 @@ class FEventBus {
   ///
   /// - [T] 需要观察的事件类型，如果不指定，则表示观察所有事件
   /// - [onData] 观察者
-  /// - [lifecycleOwner] 生命周期持有者
+  /// - [lifecycleOwner] 观察者要绑定的生命周期
   ///   1. [lifecycleOwner] != null，则[FLifecycleEvent.onDestroy]事件后，会自动移除观察者
   ///   2. [lifecycleOwner] == null，则不会自动移除观察者
   ObserverCanceller addObserver<T>(
