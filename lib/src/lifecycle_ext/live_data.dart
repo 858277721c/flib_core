@@ -74,8 +74,8 @@ class FLiveData<T> {
   }
 
   /// 移除观察者
-  void removeObserver(FLiveDataObserver<T> observer) {
-    final _ObserverWrapper<T> wrapper = _mapObserver.remove(observer);
+  void removeObserver(FLiveDataObserver observer) {
+    final _ObserverWrapper wrapper = _mapObserver.remove(observer);
     if (wrapper != null) {
       wrapper.destroy();
     }
