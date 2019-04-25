@@ -24,4 +24,14 @@ class FPageListData<T> extends FPageData<List<T>> {
           data: data ?? [],
           isNextPage: isNextPage,
         );
+
+  void fillList(List<T> list) {
+    assert(list != null);
+
+    if (!isNextPage) {
+      list.clear();
+    }
+
+    list.addAll(data);
+  }
 }
