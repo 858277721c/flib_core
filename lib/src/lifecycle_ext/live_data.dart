@@ -67,7 +67,9 @@ class FLiveData<T> {
 
     assert(notifyAfterAdded != null);
     if (notifyAfterAdded) {
-      wrapper.notifyValue(_value);
+      if (_value != null) {
+        wrapper.notifyValue(_value);
+      }
     }
   }
 
