@@ -4,7 +4,7 @@ import 'package:flib_lifecycle/flib_lifecycle.dart';
 typedef FLiveDataObserver<T> = void Function(T value);
 
 class FLiveData<T> {
-  final Map<FLiveDataObserver<T>, _ObserverWrapper<T>> _mapObserver = {};
+  final Map<FLiveDataObserver<T>, _ObserverWrapper> _mapObserver = {};
   T _value;
 
   FLiveData(T value) : this._value = value;
@@ -25,7 +25,7 @@ class FLiveData<T> {
       return;
     }
 
-    final List<_ObserverWrapper<T>> list =
+    final List<_ObserverWrapper> list =
         _mapObserver.values.toList(growable: false);
 
     list.forEach((item) {
@@ -51,13 +51,13 @@ class FLiveData<T> {
     }
 
     assert(notifyLazy != null);
-    final _ObserverWrapper<T> wrapper = notifyLazy
-        ? _LazyObserverWrapper<T>(
+    final _ObserverWrapper wrapper = notifyLazy
+        ? _LazyObserverWrapper(
             observer: observer,
             lifecycle: lifecycle,
             liveData: this,
           )
-        : _ObserverWrapper<T>(
+        : _ObserverWrapper(
             observer: observer,
             lifecycle: lifecycle,
             liveData: this,
@@ -82,9 +82,9 @@ class FLiveData<T> {
   }
 }
 
-class _ObserverWrapper<T> extends FLifecycleWrapper {
-  final FLiveDataObserver<T> observer;
-  final FLiveData<T> liveData;
+class _ObserverWrapper extends FLifecycleWrapper {
+  final FLiveDataObserver observer;
+  final FLiveData liveData;
 
   _ObserverWrapper({
     this.observer,
@@ -95,7 +95,7 @@ class _ObserverWrapper<T> extends FLifecycleWrapper {
         super(lifecycle);
 
   /// 通知观察者
-  void notifyValue(T value) {
+  void notifyValue(dynamic value) {
     if (isDestroyed) {
       return;
     }
@@ -108,13 +108,13 @@ class _ObserverWrapper<T> extends FLifecycleWrapper {
   }
 }
 
-class _LazyObserverWrapper<T> extends _ObserverWrapper<T> {
-  T _value;
+class _LazyObserverWrapper extends _ObserverWrapper {
+  dynamic _value;
   bool _changed = false;
 
   _LazyObserverWrapper({
-    FLiveDataObserver<T> observer,
-    FLiveData<T> liveData,
+    FLiveDataObserver observer,
+    FLiveData liveData,
     FLifecycle lifecycle,
   }) : super(
           observer: observer,
@@ -123,7 +123,7 @@ class _LazyObserverWrapper<T> extends _ObserverWrapper<T> {
         );
 
   @override
-  void notifyValue(T value) {
+  void notifyValue(dynamic value) {
     if (_value != value) {
       this._value = value;
       this._changed = true;
