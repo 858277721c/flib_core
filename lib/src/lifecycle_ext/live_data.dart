@@ -37,10 +37,10 @@ class FLiveData<T> {
 
   /// 添加观察者
   ///
-  /// 当[lifecycleOwner]对象分发[FLifecycleEvent.onDestroy]事件后，会自动移除观察者
-  ///
   /// - [observer] 观察者
   /// - [lifecycleOwner] 生命周期持有者
+  ///   1. [lifecycleOwner] != null，则[FLifecycleEvent.onDestroy]事件后，会自动移除观察者
+  ///   2. [lifecycleOwner] == null，则不会自动移除观察者
   /// - [notifyAfterAdded] 添加观察者之后，如果[_value]不为null的话是否立即通知当前添加的观察者，默认true-是
   /// - [notifyLazy] 延迟通知策略，是否生命周期状态大于等于[FLifecycleState.started]之后才通知，默认true-是
   void addObserver(
