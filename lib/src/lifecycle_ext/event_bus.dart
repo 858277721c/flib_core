@@ -17,9 +17,17 @@ class FEventBus {
     return _default;
   }
 
-  /// 添加事件观察者
+  /// 添加观察者
+  ///
+  /// 当[lifecycleOwner]对象分发[FLifecycleEvent.onDestroy]事件后，会自动移除观察者
+  ///
+  /// - [T] 需要观察的事件类型，如果不指定，则表示观察所有事件
+  /// - [onData] 观察者
+  /// - [lifecycleOwner] 生命周期持有者
   ObserverCanceller addObserver<T>(
-      void onData(T event), FLifecycleOwner lifecycleOwner) {
+    void onData(T event),
+    FLifecycleOwner lifecycleOwner,
+  ) {
     final Stream<T> stream = T == dynamic
         ? _streamController.stream
         : _streamController.stream.where((event) => event is T).cast<T>();
@@ -42,11 +50,14 @@ class FEventBus {
   }
 
   /// 发送事件
+  ///
+  /// - [event] 要发送的事件
   void post(dynamic event) {
     _streamController.add(event);
   }
 }
 
+/// 观察者取消对象，可以取消添加的观察者
 class ObserverCanceller {
   final StreamSubscription _streamSubscription;
 
