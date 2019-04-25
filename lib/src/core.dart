@@ -144,12 +144,31 @@ abstract class FBusiness {
       }
 
       lifecycle.addObserver((event, lifecycle) {
+        switch (event) {
+          case FLifecycleEvent.onCreate:
+            onCreate();
+            break;
+          case FLifecycleEvent.onDestroy:
+            onDestroy();
+            break;
+          default:
+            break;
+        }
+
         if (event == FLifecycleEvent.onDestroy) {
           onDestroy();
         }
       });
+    } else {
+      onCreate();
     }
   }
+
+  /// 业务类创建
+  ///
+  /// 1. 如果构造方法的[FLifecycleOwner] == null，则此方法在构造方法里面触发
+  /// 2. 如果构造方法的[FLifecycleOwner] != null，则此方法在[FLifecycleEvent.onCreate]生命周期触发
+  void onCreate();
 
   /// 业务类销毁
   void onDestroy() {}
