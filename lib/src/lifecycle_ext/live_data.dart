@@ -113,7 +113,7 @@ class _LazyObserverWrapper<T> extends _ObserverWrapper<T> {
   bool _changed = false;
 
   _LazyObserverWrapper({
-    FLiveDataObserver observer,
+    FLiveDataObserver<T> observer,
     FLiveData liveData,
     FLifecycle lifecycle,
   }) : super(
