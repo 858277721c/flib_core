@@ -96,8 +96,6 @@ class FSimpleTitleBar extends FTitleBar {
   }
 }
 
-typedef void OnTapTitleBarItem(BuildContext context);
-
 /// 标题栏item
 class FTitleBarItem extends StatelessWidget {
   final Widget child;
