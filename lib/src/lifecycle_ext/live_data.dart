@@ -4,7 +4,7 @@ import 'package:flib_lifecycle/flib_lifecycle.dart';
 typedef FLiveDataObserver<T> = void Function(T value);
 
 class FLiveData<T> {
-  final Map<FLiveDataObserver<T>, _ObserverWrapper> _mapObserver = {};
+  final Map<FLiveDataObserver<T>, _ObserverWrapper<T>> _mapObserver = {};
   T _value;
 
   FLiveData(T value) : this._value = value;
@@ -25,8 +25,8 @@ class FLiveData<T> {
       return;
     }
 
-    final List<_ObserverWrapper> list =
-        _mapObserver.values.toList(growable: false);
+    final List<_ObserverWrapper<T>> list =
+    _mapObserver.values.toList(growable: false);
 
     list.forEach((item) {
       item.notifyValue(_value);
@@ -35,11 +35,11 @@ class FLiveData<T> {
 
   /// 添加观察者
   void addObserver(
-    FLiveDataObserver<T> observer,
-    FLifecycleOwner lifecycleOwner, {
-    bool notifyAfterAdded = true,
-    bool notifyLazy = true,
-  }) {
+      FLiveDataObserver<T> observer,
+      FLifecycleOwner lifecycleOwner, {
+        bool notifyAfterAdded = true,
+        bool notifyLazy = true,
+      }) {
     if (_mapObserver.containsKey(observer)) {
       return;
     }
@@ -51,17 +51,17 @@ class FLiveData<T> {
     }
 
     assert(notifyLazy != null);
-    final _ObserverWrapper wrapper = notifyLazy
-        ? _LazyObserverWrapper(
-            observer: observer,
-            lifecycle: lifecycle,
-            liveData: this,
-          )
-        : _ObserverWrapper(
-            observer: observer,
-            lifecycle: lifecycle,
-            liveData: this,
-          );
+    final _ObserverWrapper<T> wrapper = notifyLazy
+        ? _LazyObserverWrapper<T>(
+      observer: observer,
+      lifecycle: lifecycle,
+      liveData: this,
+    )
+        : _ObserverWrapper<T>(
+      observer: observer,
+      lifecycle: lifecycle,
+      liveData: this,
+    );
 
     _mapObserver[observer] = wrapper;
 
@@ -74,17 +74,17 @@ class FLiveData<T> {
   }
 
   /// 移除观察者
-  void removeObserver(FLiveDataObserver observer) {
-    final _ObserverWrapper wrapper = _mapObserver.remove(observer);
+  void removeObserver(FLiveDataObserver<T> observer) {
+    final _ObserverWrapper<T> wrapper = _mapObserver.remove(observer);
     if (wrapper != null) {
       wrapper.destroy();
     }
   }
 }
 
-class _ObserverWrapper extends FLifecycleWrapper {
-  final FLiveDataObserver observer;
-  final FLiveData liveData;
+class _ObserverWrapper<T> extends FLifecycleWrapper {
+  final FLiveDataObserver<T> observer;
+  final FLiveData<T> liveData;
 
   _ObserverWrapper({
     this.observer,
@@ -95,7 +95,7 @@ class _ObserverWrapper extends FLifecycleWrapper {
         super(lifecycle);
 
   /// 通知观察者
-  void notifyValue(dynamic value) {
+  void notifyValue(T value) {
     if (isDestroyed) {
       return;
     }
@@ -108,22 +108,22 @@ class _ObserverWrapper extends FLifecycleWrapper {
   }
 }
 
-class _LazyObserverWrapper extends _ObserverWrapper {
-  dynamic _value;
+class _LazyObserverWrapper<T> extends _ObserverWrapper<T> {
+  T _value;
   bool _changed = false;
 
   _LazyObserverWrapper({
-    FLiveDataObserver observer,
-    FLiveData liveData,
+    FLiveDataObserver<T> observer,
+    FLiveData<T> liveData,
     FLifecycle lifecycle,
   }) : super(
-          observer: observer,
-          liveData: liveData,
-          lifecycle: lifecycle,
-        );
+    observer: observer,
+    liveData: liveData,
+    lifecycle: lifecycle,
+  );
 
   @override
-  void notifyValue(dynamic value) {
+  void notifyValue(T value) {
     if (_value != value) {
       this._value = value;
       this._changed = true;
