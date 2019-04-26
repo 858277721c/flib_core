@@ -1,3 +1,4 @@
+import 'package:flib_core/src/lifecycle_ext/state_lifecycle_adapter.dart';
 import 'package:flib_core/src/state_manager.dart';
 import 'package:flib_lifecycle/flib_lifecycle.dart';
 import 'package:flutter/material.dart';
