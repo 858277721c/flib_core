@@ -2,16 +2,20 @@ import 'package:flutter/material.dart';
 
 class FStatefulWidgetController {
   final GlobalKey<_InternalStatefulWidgetState> _globalKey = GlobalKey();
-  final WidgetBuilder builder;
+  WidgetBuilder _builder;
 
-  FStatefulWidgetController(this.builder);
+  /// 初始化，设置一个ui构建对象
+  void init(WidgetBuilder builder) {
+    assert(builder != null);
+    assert(this._builder == null);
+    this._builder = builder;
+  }
 
   /// 创建一个ui返回
   StatefulWidget newWidget() {
+    assert(this._builder != null);
     return _InternalStatefulWidget(
-      builder: (context) {
-        return builder(context);
-      },
+      builder: _builder,
       key: _globalKey,
     );
   }
