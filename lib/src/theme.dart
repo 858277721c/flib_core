@@ -13,6 +13,7 @@ class FTheme {
       scaffoldBackgroundColor: FRes.colors().bgPage,
       buttonTheme: buttonThemeDataPrimary(),
       appBarTheme: appBarTheme(),
+      dialogTheme: dialogTheme(),
     );
   }
 
@@ -44,6 +45,21 @@ class FTheme {
     return AppBarTheme(
       color: FRes.titleBar().backgroundColor,
       brightness: FRes.titleBar().brightness,
+    );
+  }
+
+  static DialogTheme dialogTheme() {
+    return DialogTheme(
+      titleTextStyle: TextStyle(
+        fontSize: 16,
+        color: FRes.colors().textGrayL,
+        decoration: TextDecoration.none,
+      ),
+      contentTextStyle: TextStyle(
+        fontSize: 14,
+        color: FRes.colors().textGrayM,
+        decoration: TextDecoration.none,
+      ),
     );
   }
 }
