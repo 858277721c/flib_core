@@ -165,7 +165,7 @@ class FResTitleBar {
     this.height = 45,
     this.textSize = 16,
     this.textSizeSub = 13,
-    this.minWidthItem = 40,
+    this.minWidthItem = 35,
     this.widthItemImage = 20,
     this.heightItemImage = 20,
   })  : assert(backgroundColor != null),
