@@ -28,7 +28,7 @@ class FTitleBar extends StatelessWidget implements PreferredSizeWidget {
     this.decoration,
   })  : this.color = color ?? FRes.titleBar().backgroundColor,
         this.height = height ?? FRes.titleBar().height,
-        this.elevation = elevation ?? 4;
+        this.elevation = elevation ?? 0;
 
   @override
   Widget build(BuildContext context) {
@@ -52,12 +52,12 @@ class FTitleBar extends StatelessWidget implements PreferredSizeWidget {
 }
 
 /// 分为（左，中，右）三层层叠的标题栏
-class FStackTitleBar extends FTitleBar {
+class FSimpleTitleBar extends FTitleBar {
   final Widget left;
   final Widget middle;
-  final Widget right;
+  final List<Widget> right;
 
-  FStackTitleBar({
+  FSimpleTitleBar({
     this.left,
     this.middle,
     this.right,
@@ -72,6 +72,27 @@ class FStackTitleBar extends FTitleBar {
           decoration: decoration,
         );
 
+  @override
+  Widget getChild(BuildContext context) {
+    return _SimpleTitleView(
+      left: left,
+      middle: middle,
+      right: right,
+    );
+  }
+}
+
+class _SimpleTitleView extends StatelessWidget {
+  final Widget left;
+  final Widget middle;
+  final List<Widget> right;
+
+  _SimpleTitleView({
+    this.left,
+    this.middle,
+    this.right,
+  });
+
   void _addToList(
       Widget child, AlignmentGeometry alignment, List<Widget> list) {
     if (child == null) {
@@ -85,7 +106,7 @@ class FStackTitleBar extends FTitleBar {
   }
 
   @override
-  Widget getChild(BuildContext context) {
+  Widget build(BuildContext context) {
     final List<Widget> list = [];
 
     Widget widgetLeft = left;
@@ -114,7 +135,18 @@ class FStackTitleBar extends FTitleBar {
       );
     }
 
-    Widget widgetRight = right;
+    Widget widgetRight;
+    if (right != null) {
+      if (right.length > 1) {
+        widgetRight = Row(
+          mainAxisSize: MainAxisSize.min,
+          children: right,
+        );
+      } else {
+        widgetRight = right[0];
+      }
+    }
+
     if (widgetRight != null) {
       widgetRight = DefaultTextStyle(
         style: TextStyle(
@@ -133,48 +165,6 @@ class FStackTitleBar extends FTitleBar {
     return Stack(
       children: list,
       alignment: Alignment.center,
-    );
-  }
-}
-
-class FSimpleTitleBar extends FTitleBar {
-  final Widget left;
-  final Widget middle;
-  final List<Widget> right;
-
-  FSimpleTitleBar({
-    this.left,
-    this.middle,
-    this.right,
-    Color color,
-    double height,
-    double elevation,
-    Decoration decoration,
-  }) : super(
-          color: color,
-          height: height,
-          elevation: elevation,
-          decoration: decoration,
-        );
-
-  @override
-  Widget getChild(BuildContext context) {
-    Widget widgetRight;
-    if (right != null) {
-      if (right.length > 1) {
-        widgetRight = Row(
-          mainAxisSize: MainAxisSize.min,
-          children: right,
-        );
-      } else {
-        widgetRight = right[0];
-      }
-    }
-
-    return FStackTitleBar(
-      left: left,
-      middle: middle,
-      right: widgetRight,
     );
   }
 }
