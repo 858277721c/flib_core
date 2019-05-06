@@ -160,7 +160,7 @@ class FSimpleTitleBar extends FTitleBar {
   @override
   Widget getChild(BuildContext context) {
     Widget widgetRight;
-    if (right != null && right.isNotEmpty) {
+    if (right != null && right.length > 1) {
       widgetRight = Row(
         mainAxisSize: MainAxisSize.min,
         children: right,
