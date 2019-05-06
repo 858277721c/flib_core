@@ -2,6 +2,7 @@ library flib_core;
 
 export 'package:flib_lifecycle/flib_lifecycle.dart';
 
+export 'src/adapter.dart';
 export 'src/border_radius.dart';
 export 'src/border_side.dart';
 export 'src/button.dart';
