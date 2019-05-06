@@ -10,6 +10,7 @@ class FTheme {
     final Color mainColor = FRes.colors().mainColor;
     return ThemeData(
       primaryColor: mainColor,
+      accentColor: mainColor,
       scaffoldBackgroundColor: FRes.colors().bgPage,
       buttonTheme: buttonThemeDataPrimary(),
       appBarTheme: appBarTheme(),
