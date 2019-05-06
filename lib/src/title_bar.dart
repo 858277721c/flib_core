@@ -51,20 +51,20 @@ class FTitleBar extends StatelessWidget implements PreferredSizeWidget {
   Size get preferredSize => Size(double.infinity, height);
 }
 
-/// 分为左，中，右的简单标题栏
-class FSimpleTitleBar extends FTitleBar {
+/// 分为（左，中，右）三层层叠的标题栏
+class FStackTitleBar extends FTitleBar {
   final Widget left;
   final Widget middle;
   final Widget right;
 
-  FSimpleTitleBar({
+  FStackTitleBar({
+    this.left,
+    this.middle,
+    this.right,
     Color color,
     double height,
     double elevation,
     Decoration decoration,
-    this.left,
-    this.middle,
-    this.right,
   }) : super(
           color: color,
           height: height,
