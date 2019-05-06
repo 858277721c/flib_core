@@ -137,6 +137,44 @@ class FStackTitleBar extends FTitleBar {
   }
 }
 
+class FSimpleTitleBar extends FTitleBar {
+  final Widget left;
+  final Widget middle;
+  final List<Widget> right;
+
+  FSimpleTitleBar({
+    this.left,
+    this.middle,
+    this.right,
+    Color color,
+    double height,
+    double elevation,
+    Decoration decoration,
+  }) : super(
+          color: color,
+          height: height,
+          elevation: elevation,
+          decoration: decoration,
+        );
+
+  @override
+  Widget getChild(BuildContext context) {
+    Widget widgetRight;
+    if (right != null && right.isNotEmpty) {
+      widgetRight = Row(
+        mainAxisSize: MainAxisSize.min,
+        children: right,
+      );
+    }
+
+    return FStackTitleBar(
+      left: left,
+      middle: middle,
+      right: widgetRight,
+    );
+  }
+}
+
 /// 标题栏item
 class FTitleBarItem extends StatelessWidget {
   final Widget child;
