@@ -37,13 +37,13 @@ class FTitleBar extends StatelessWidget implements PreferredSizeWidget {
       elevation: elevation,
       child: Container(
         decoration: decoration,
-        child: getChild(),
+        child: getChild(context),
       ),
     );
   }
 
   @protected
-  Widget getChild() {
+  Widget getChild(BuildContext context) {
     return child;
   }
 
@@ -53,50 +53,85 @@ class FTitleBar extends StatelessWidget implements PreferredSizeWidget {
 
 /// 分为左，中，右的简单标题栏
 class FSimpleTitleBar extends FTitleBar {
-  final List<Widget> _list = [];
+  final Widget left;
+  final Widget middle;
+  final Widget right;
 
   FSimpleTitleBar({
     Color color,
     double height,
     double elevation,
     Decoration decoration,
-    Widget left,
-    Widget middle,
-    Widget right,
+    this.left,
+    this.middle,
+    this.right,
   }) : super(
           color: color,
           height: height,
           elevation: elevation,
           decoration: decoration,
-        ) {
-    if (left == null) {
-      left = FTitleBarItemBack();
-    }
+        );
 
-    _addToList(left, Alignment.centerLeft);
-    _addToList(middle, Alignment.center);
-    _addToList(right, Alignment.centerRight);
-  }
-
-  void _addToList(Widget child, AlignmentGeometry alignment) {
+  void _addToList(
+      Widget child, AlignmentGeometry alignment, List<Widget> list) {
     if (child == null) {
       return;
     }
     assert(alignment != null);
-    _list.add(SizedBox(
-      child: Align(
-        child: child,
-        alignment: alignment,
-      ),
-      width: double.infinity,
-      height: double.infinity,
+    list.add(Container(
+      child: child,
+      alignment: alignment,
     ));
   }
 
   @override
-  Widget getChild() {
+  Widget getChild(BuildContext context) {
+    final List<Widget> list = [];
+
+    Widget widgetLeft = left;
+    if (widgetLeft == null) {
+      widgetLeft = FTitleBarItemBack();
+    } else {
+      widgetLeft = DefaultTextStyle(
+        style: TextStyle(
+          decoration: TextDecoration.none,
+          fontSize: FRes.titleBar().textSizeSub,
+          color: FRes.titleBar().textColor,
+        ),
+        child: widgetLeft,
+      );
+    }
+
+    Widget widgetMiddle = middle;
+    if (widgetMiddle != null) {
+      widgetMiddle = DefaultTextStyle(
+        style: TextStyle(
+          decoration: TextDecoration.none,
+          fontSize: FRes.titleBar().textSize,
+          color: FRes.titleBar().textColor,
+        ),
+        child: widgetMiddle,
+      );
+    }
+
+    Widget widgetRight = right;
+    if (widgetRight != null) {
+      widgetRight = DefaultTextStyle(
+        style: TextStyle(
+          decoration: TextDecoration.none,
+          fontSize: FRes.titleBar().textSizeSub,
+          color: FRes.titleBar().textColor,
+        ),
+        child: widgetRight,
+      );
+    }
+
+    _addToList(widgetLeft, Alignment.centerLeft, list);
+    _addToList(widgetMiddle, Alignment.center, list);
+    _addToList(widgetRight, Alignment.centerRight, list);
+
     return Stack(
-      children: _list,
+      children: list,
       alignment: Alignment.center,
     );
   }
