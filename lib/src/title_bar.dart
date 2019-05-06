@@ -16,25 +16,28 @@ class FTitleBarSize extends Size {
 class FTitleBar extends StatelessWidget implements PreferredSizeWidget {
   final Widget child;
   final Color color;
-  final double width;
   final double height;
+  final double elevation;
+  final Decoration decoration;
 
   FTitleBar({
     this.child,
     Color color,
-    double width,
     double height,
+    this.elevation = 10,
+    this.decoration,
   })  : this.color = color ?? FRes.titleBar().backgroundColor,
-        this.width = width ?? double.infinity,
         this.height = height ?? FRes.titleBar().height;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: getChild(),
+    return Material(
       color: color,
-      width: width,
-      height: height,
+      elevation: elevation,
+      child: Container(
+        decoration: decoration,
+        child: getChild(),
+      ),
     );
   }
 
@@ -44,7 +47,7 @@ class FTitleBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size(width, height);
+  Size get preferredSize => Size(double.infinity, height);
 }
 
 /// 分为左，中，右的简单标题栏
@@ -53,15 +56,17 @@ class FSimpleTitleBar extends FTitleBar {
 
   FSimpleTitleBar({
     Color color,
-    double width,
     double height,
+    double elevation = 10,
+    Decoration decoration,
     Widget left,
     Widget middle,
     Widget right,
   }) : super(
           color: color,
-          width: width,
           height: height,
+          elevation: elevation,
+          decoration: decoration,
         ) {
     if (left == null) {
       left = FTitleBarItemBack();
