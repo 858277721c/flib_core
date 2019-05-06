@@ -24,10 +24,11 @@ class FTitleBar extends StatelessWidget implements PreferredSizeWidget {
     this.child,
     Color color,
     double height,
-    this.elevation = 10,
+    double elevation,
     this.decoration,
   })  : this.color = color ?? FRes.titleBar().backgroundColor,
-        this.height = height ?? FRes.titleBar().height;
+        this.height = height ?? FRes.titleBar().height,
+        this.elevation = elevation ?? 4;
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +58,7 @@ class FSimpleTitleBar extends FTitleBar {
   FSimpleTitleBar({
     Color color,
     double height,
-    double elevation = 10,
+    double elevation,
     Decoration decoration,
     Widget left,
     Widget middle,
