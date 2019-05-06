@@ -129,7 +129,14 @@ class FTitleBarItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    Widget current = Stack(
+      children: <Widget>[
+        _getChild(),
+      ],
+      alignment: alignment,
+    );
+
+    current = Container(
       color: color,
       constraints: BoxConstraints(
           minWidth: minWidth,
@@ -138,20 +145,19 @@ class FTitleBarItem extends StatelessWidget {
           maxHeight: double.infinity),
       padding: padding,
       margin: margin,
-      child: InkWell(
-        child: Stack(
-          children: <Widget>[
-            _getChild(),
-          ],
-          alignment: alignment,
-        ),
-        onTap: onClick == null
-            ? null
-            : () {
-                onClick();
-              },
-      ),
+      child: current,
     );
+
+    current = InkWell(
+      child: current,
+      onTap: onClick == null
+          ? null
+          : () {
+              onClick();
+            },
+    );
+
+    return current;
   }
 
   Widget _getChild() {
