@@ -142,6 +142,9 @@ class FResTitleBar {
   /// 标题栏高度
   final double height;
 
+  /// 阴影高度
+  final double elevation;
+
   /// 标题栏文字大小
   final double textSize;
 
@@ -163,6 +166,7 @@ class FResTitleBar {
     Color textColor,
     this.imageBack,
     this.height = 45,
+    this.elevation = 4,
     this.textSize = 16,
     this.textSizeSub = 13,
     this.minWidthItem = 35,

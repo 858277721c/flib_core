@@ -30,7 +30,7 @@ class FTitleBar extends StatelessWidget implements PreferredSizeWidget {
     bool safeTop,
   })  : this.color = color ?? FRes.titleBar().backgroundColor,
         this.height = height ?? FRes.titleBar().height,
-        this.elevation = elevation ?? 0,
+        this.elevation = elevation ?? FRes.titleBar().elevation,
         this.safeTop = safeTop ?? true;
 
   @override
@@ -61,18 +61,41 @@ class FTitleBar extends StatelessWidget implements PreferredSizeWidget {
       }
     }
 
-    current = Container(
-      decoration: decoration,
-      child: current,
-    );
+    if (decoration != null) {
+      current = _wrapMaterialOnlyInk(current);
+      current = _wrapDecoration(current);
 
-    current = Material(
-      color: color,
-      elevation: elevation,
-      child: current,
-    );
+      if (elevation > 0) {
+        current = _wrapMaterial(current);
+      }
+    } else {
+      current = _wrapMaterial(current);
+    }
 
     return current;
+  }
+
+  Widget _wrapMaterial(Widget widget) {
+    return Material(
+      color: color,
+      elevation: elevation,
+      child: widget,
+    );
+  }
+
+  Widget _wrapMaterialOnlyInk(Widget widget) {
+    return Material(
+      color: Colors.transparent,
+      elevation: 0,
+      child: widget,
+    );
+  }
+
+  Widget _wrapDecoration(Widget widget) {
+    return Container(
+      decoration: decoration,
+      child: widget,
+    );
   }
 
   @protected
