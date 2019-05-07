@@ -39,7 +39,7 @@ class FSafeArea extends StatelessWidget {
 
   FSafeArea({
     @required this.child,
-    this.top = true,
+    this.top = false,
     Color topColor,
     this.bottom = true,
     Color bottomColor,
