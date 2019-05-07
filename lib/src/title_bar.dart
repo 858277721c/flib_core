@@ -27,10 +27,11 @@ class FTitleBar extends StatelessWidget implements PreferredSizeWidget {
     double height,
     double elevation,
     this.decoration,
-    this.safeTop = true,
+    bool safeTop,
   })  : this.color = color ?? FRes.titleBar().backgroundColor,
         this.height = height ?? FRes.titleBar().height,
-        this.elevation = elevation ?? 0;
+        this.elevation = elevation ?? 0,
+        this.safeTop = safeTop ?? true;
 
   @override
   Widget build(BuildContext context) {
