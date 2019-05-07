@@ -93,11 +93,13 @@ class FSimpleTitleBar extends FTitleBar {
     double height,
     double elevation,
     Decoration decoration,
+    bool safeTop,
   }) : super(
           color: color,
           height: height,
           elevation: elevation,
           decoration: decoration,
+          safeTop: safeTop,
         );
 
   @override
