@@ -54,7 +54,10 @@ class FSafeArea extends StatelessWidget {
     final EdgeInsets padding = MediaQuery.of(context).padding;
     final List<Widget> list = [];
 
-    if (top && padding.top > 0) {
+    final bool safeTop = top && padding.top > 0;
+    final bool safeBottom = bottom && padding.bottom > 0;
+
+    if (safeTop) {
       list.add(Container(
         color: topColor,
         height: padding.top,
@@ -64,15 +67,15 @@ class FSafeArea extends StatelessWidget {
     list.add(Expanded(
       child: MediaQuery.removePadding(
         context: context,
-        removeTop: top,
-        removeBottom: bottom,
+        child: child,
+        removeTop: safeTop,
+        removeBottom: safeBottom,
         removeLeft: true,
         removeRight: true,
-        child: child,
       ),
     ));
 
-    if (bottom && padding.bottom > 0) {
+    if (safeBottom) {
       list.add(Container(
         color: bottomColor,
         height: padding.bottom,
