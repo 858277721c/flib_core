@@ -32,14 +32,20 @@ class FTitleBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
+    Widget current = Container(
+      width: double.infinity,
+      height: height,
+      decoration: decoration,
+      child: getChild(context),
+    );
+
+    current = Material(
       color: color,
       elevation: elevation,
-      child: Container(
-        decoration: decoration,
-        child: getChild(context),
-      ),
+      child: current,
     );
+
+    return current;
   }
 
   @protected
