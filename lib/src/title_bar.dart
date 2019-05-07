@@ -61,15 +61,15 @@ class FTitleBar extends StatelessWidget implements PreferredSizeWidget {
       }
     }
 
-    if (decoration != null) {
+    if (decoration == null) {
+      current = _wrapMaterial(current);
+    } else {
       current = _wrapMaterialOnlyInk(current);
       current = _wrapDecoration(current);
 
       if (elevation > 0) {
         current = _wrapMaterial(current);
       }
-    } else {
-      current = _wrapMaterial(current);
     }
 
     return current;
