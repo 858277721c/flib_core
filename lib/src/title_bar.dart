@@ -19,6 +19,7 @@ class FTitleBar extends StatelessWidget implements PreferredSizeWidget {
   final double height;
   final double elevation;
   final Decoration decoration;
+  final bool safeTop;
 
   FTitleBar({
     this.child,
@@ -26,6 +27,7 @@ class FTitleBar extends StatelessWidget implements PreferredSizeWidget {
     double height,
     double elevation,
     this.decoration,
+    this.safeTop = true,
   })  : this.color = color ?? FRes.titleBar().backgroundColor,
         this.height = height ?? FRes.titleBar().height,
         this.elevation = elevation ?? 0;
@@ -38,6 +40,26 @@ class FTitleBar extends StatelessWidget implements PreferredSizeWidget {
       decoration: decoration,
       child: getChild(context),
     );
+
+    if (safeTop) {
+      final EdgeInsets padding = MediaQuery.of(context).padding;
+      if (padding.top > 0) {
+        current = Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Container(
+              height: padding.top,
+            ),
+            current,
+          ],
+        );
+        current = MediaQuery.removePadding(
+          context: context,
+          child: current,
+          removeTop: true,
+        );
+      }
+    }
 
     current = Material(
       color: color,
