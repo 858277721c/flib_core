@@ -37,7 +37,6 @@ class FTitleBar extends StatelessWidget implements PreferredSizeWidget {
     Widget current = Container(
       width: double.infinity,
       height: height,
-      decoration: decoration,
       child: getChild(context),
     );
 
@@ -60,6 +59,11 @@ class FTitleBar extends StatelessWidget implements PreferredSizeWidget {
         );
       }
     }
+
+    current = Container(
+      decoration: decoration,
+      child: current,
+    );
 
     current = Material(
       color: color,
