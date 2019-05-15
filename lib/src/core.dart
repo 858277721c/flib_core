@@ -135,8 +135,8 @@ abstract class FTargetState<T extends StatefulWidget, S extends State>
   void onTargetState(S state);
 }
 
-abstract class FBusiness {
-  FBusiness(FLifecycleOwner lifecycleOwner) {
+abstract class FViewModel {
+  FViewModel(FLifecycleOwner lifecycleOwner) {
     if (lifecycleOwner != null) {
       final FLifecycle lifecycle = lifecycleOwner.getLifecycle();
       assert(lifecycle != null);
@@ -155,55 +155,51 @@ abstract class FBusiness {
           default:
             break;
         }
-
-        if (event == FLifecycleEvent.onDestroy) {
-          onDestroy();
-        }
       });
     } else {
       onCreate();
     }
   }
 
-  /// 业务类创建
+  /// 创建
   ///
   /// 1. 如果构造方法的[FLifecycleOwner] == null，则此方法在构造方法里面触发
   /// 2. 如果构造方法的[FLifecycleOwner] != null，则此方法在[FLifecycleEvent.onCreate]生命周期触发
   void onCreate();
 
-  /// 业务类销毁
+  /// 销毁
   void onDestroy() {}
 }
 
-abstract class FBusinessState<T extends StatefulWidget, B extends FBusiness>
+abstract class FViewModelState<T extends StatefulWidget, VM extends FViewModel>
     extends FState<T> {
-  B _business;
+  VM _viewModel;
 
-  /// 返回业务类对象
-  B get business {
-    if (_business == null) {
-      _business = createBusiness();
-      assert(_business != null);
+  /// 返回ViewModel对象
+  VM get viewModel {
+    if (_viewModel == null) {
+      _viewModel = createViewModel();
+      assert(_viewModel != null);
     }
-    return _business;
+    return _viewModel;
   }
 
-  /// 返回一个业务类对象
-  B createBusiness();
+  /// 返回一个ViewModel对象
+  VM createViewModel();
 
   @protected
   @mustCallSuper
   @override
   void initState() {
     super.initState();
-    if (B == FBusiness) {
-      throw Exception('Generics "B" are not specified');
+    if (VM == FViewModel) {
+      throw Exception('Generics "VM" are not specified');
     }
   }
 }
 
-abstract class FRouteState<T extends StatefulWidget, B extends FBusiness>
-    extends FBusinessState<T, B> {
+abstract class FRouteState<T extends StatefulWidget, VM extends FViewModel>
+    extends FViewModelState<T, VM> {
   @protected
   @mustCallSuper
   @override
