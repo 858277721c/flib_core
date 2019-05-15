@@ -83,8 +83,8 @@ abstract class FState<T extends StatefulWidget> extends State<T>
   @mustCallSuper
   @override
   void dispose() {
-    super.dispose();
     _stateLifecycleAdapter.dispose();
+    super.dispose();
   }
 
   @protected

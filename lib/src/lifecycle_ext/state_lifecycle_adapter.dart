@@ -1,7 +1,7 @@
 import 'package:flib_lifecycle/flib_lifecycle.dart';
 import 'package:flutter/material.dart';
 
-class FStateLifecycleAdapter implements FLifecycleOwner, FStateLifecycle {
+class FStateLifecycleAdapter implements FLifecycleOwner, _StateLifecycle {
   final FLifecycleRegistry _lifecycleRegistry;
   bool _started;
   bool _startedMarker;
@@ -31,6 +31,8 @@ class FStateLifecycleAdapter implements FLifecycleOwner, FStateLifecycle {
       _started = true;
       _notifyStartOrStop();
     }
+
+    return null;
   }
 
   @override
@@ -66,7 +68,7 @@ class FStateLifecycleAdapter implements FLifecycleOwner, FStateLifecycle {
   }
 }
 
-abstract class FStateLifecycle {
+abstract class _StateLifecycle {
   void initState();
 
   Widget build(BuildContext context);
