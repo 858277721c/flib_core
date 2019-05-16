@@ -14,9 +14,11 @@ class FStateManager {
     if (!state.mounted) {
       return;
     }
+
     if (_mapState.containsKey(state)) {
       return;
     }
+
     final FLifecycle lifecycle = state.getLifecycle();
     assert(lifecycle != null);
     if (lifecycle.getCurrentState() == FLifecycleState.destroyed) {
