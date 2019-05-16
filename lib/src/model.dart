@@ -2,7 +2,7 @@ class FPageInfo {
   /// 是否下一页的数据
   final bool isNextPage;
 
-  FPageInfo({this.isNextPage = false}) : assert(isNextPage != null);
+  FPageInfo({bool isNextPage}) : this.isNextPage = isNextPage ?? false;
 }
 
 /// 分页数据
@@ -11,7 +11,7 @@ class FPageData<T> extends FPageInfo {
 
   FPageData({
     this.data,
-    bool isNextPage = false,
+    bool isNextPage,
   }) : super(isNextPage: isNextPage);
 }
 
@@ -19,7 +19,7 @@ class FPageData<T> extends FPageInfo {
 class FPageListData<T> extends FPageData<List<T>> {
   FPageListData({
     List<T> data,
-    bool isNextPage = false,
+    bool isNextPage,
   }) : super(
           data: data ?? [],
           isNextPage: isNextPage,
