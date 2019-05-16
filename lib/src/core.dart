@@ -135,8 +135,8 @@ abstract class FTargetState<T extends StatefulWidget, S extends State>
   void onTargetState(S state);
 }
 
-abstract class FViewModel {
-  FViewModel(FLifecycleOwner lifecycleOwner) {
+abstract class FBusiness {
+  FBusiness(FLifecycleOwner lifecycleOwner) {
     if (lifecycleOwner != null) {
       final FLifecycle lifecycle = lifecycleOwner.getLifecycle();
       assert(lifecycle != null);
@@ -171,35 +171,35 @@ abstract class FViewModel {
   void onDestroy() {}
 }
 
-abstract class FViewModelState<T extends StatefulWidget, VM extends FViewModel>
+abstract class FBusinessState<T extends StatefulWidget, BS extends FBusiness>
     extends FState<T> {
-  VM _viewModel;
+  BS _business;
 
-  /// 返回ViewModel对象
-  VM get viewModel {
-    if (_viewModel == null) {
-      _viewModel = createViewModel();
-      assert(_viewModel != null);
+  /// 返回业务对象
+  BS get business {
+    if (_business == null) {
+      _business = createBusiness();
+      assert(_business != null);
     }
-    return _viewModel;
+    return _business;
   }
 
-  /// 返回一个ViewModel对象
-  VM createViewModel();
+  // 创建一个业务对象返回
+  BS createBusiness();
 
   @protected
   @mustCallSuper
   @override
   void initState() {
     super.initState();
-    if (VM == FViewModel) {
-      throw Exception('Generics "VM" are not specified');
+    if (BS == FBusiness) {
+      throw Exception('Generics "BS" are not specified');
     }
   }
 }
 
-abstract class FRouteState<T extends StatefulWidget, VM extends FViewModel>
-    extends FViewModelState<T, VM> {
+abstract class FRouteState<T extends StatefulWidget, BS extends FBusiness>
+    extends FBusinessState<T, BS> {
   @protected
   @mustCallSuper
   @override
