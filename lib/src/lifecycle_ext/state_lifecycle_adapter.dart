@@ -29,7 +29,7 @@ class FStateLifecycleAdapter implements FLifecycleOwner, _StateLifecycle {
     if (_startedMarker) {
       _startedMarker = false;
       _started = true;
-      _notifyStartOrStop();
+      _lifecycleRegistry.handleLifecycleEvent(FLifecycleEvent.onStart);
     }
 
     return null;
@@ -45,7 +45,7 @@ class FStateLifecycleAdapter implements FLifecycleOwner, _StateLifecycle {
       // 等待build
     } else {
       _started = false;
-      _notifyStartOrStop();
+      _lifecycleRegistry.handleLifecycleEvent(FLifecycleEvent.onStop);
     }
   }
 
@@ -54,17 +54,6 @@ class FStateLifecycleAdapter implements FLifecycleOwner, _StateLifecycle {
     _started = null;
     _startedMarker = null;
     _lifecycleRegistry.handleLifecycleEvent(FLifecycleEvent.onDestroy);
-  }
-
-  void _notifyStartOrStop() {
-    if (_started == null) {
-      return;
-    }
-    if (_started) {
-      _lifecycleRegistry.handleLifecycleEvent(FLifecycleEvent.onStart);
-    } else {
-      _lifecycleRegistry.handleLifecycleEvent(FLifecycleEvent.onStop);
-    }
   }
 }
 
