@@ -21,9 +21,9 @@ class FPageListData<T> extends FPageData<List<T>> {
     List<T> data,
     bool isNextPage,
   }) : super(
-          data: data ?? [],
-          isNextPage: isNextPage,
-        );
+    data: data ?? [],
+    isNextPage: isNextPage,
+  );
 
   void fillList(List<T> list) {
     assert(list != null);
