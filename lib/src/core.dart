@@ -1,5 +1,4 @@
 import 'package:flib_core/src/lifecycle_ext/state_lifecycle_adapter.dart';
-import 'package:flib_core/src/state_manager.dart';
 import 'package:flib_lifecycle/flib_lifecycle.dart';
 import 'package:flutter/material.dart';
 
@@ -131,14 +130,4 @@ abstract class FTargetState<T extends StatefulWidget, S extends State>
   /// 获取到目标State后回调此方法
   @protected
   void onTargetState(S state);
-}
-
-abstract class FRouteState<T extends StatefulWidget> extends FState<T> {
-  @protected
-  @mustCallSuper
-  @override
-  void initState() {
-    super.initState();
-    FStateManager.singleton.addState(this);
-  }
 }
