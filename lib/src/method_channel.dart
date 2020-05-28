@@ -6,8 +6,9 @@ import 'package:flutter/services.dart';
 typedef dynamic FMethodCallHandler(Map<String, dynamic> arguments);
 
 class FMethodChannel {
-  static final FMethodChannel global = _FGlobalMethodChannel();
-  static final FMethodChannel stateLifecycle = _FStateLifecycleChannel();
+  static final FGlobalMethodChannel global = FGlobalMethodChannel._();
+  static final FStateLifecycleChannel stateLifecycle =
+      FStateLifecycleChannel._();
 
   final MethodChannel _methodChannel;
   final Map<String, FMethodCallHandler> _mapCallHandler = {};
@@ -51,15 +52,43 @@ class FMethodChannel {
   }
 }
 
-class _FGlobalMethodChannel extends FMethodChannel {
-  _FGlobalMethodChannel() : super('_global_');
+class FGlobalMethodChannel extends FMethodChannel {
+  FGlobalMethodChannel._() : super('_global_');
 
   @override
   void dispose() {}
 }
 
-class _FStateLifecycleChannel extends FMethodChannel {
-  _FStateLifecycleChannel() : super("state_lifecycle");
+class FStateLifecycleChannel extends FMethodChannel {
+  FStateLifecycleChannel._() : super("state_lifecycle");
+
+  void onCreate(String stateName) {
+    assert(stateName != null && stateName.isNotEmpty);
+    invokeMethod("onCreate", {
+      "name": stateName,
+    });
+  }
+
+  void onStart(String stateName) {
+    assert(stateName != null && stateName.isNotEmpty);
+    invokeMethod("onStart", {
+      "name": stateName,
+    });
+  }
+
+  void onStop(String stateName) {
+    assert(stateName != null && stateName.isNotEmpty);
+    invokeMethod("onStop", {
+      "name": stateName,
+    });
+  }
+
+  void onDestroy(String stateName) {
+    assert(stateName != null && stateName.isNotEmpty);
+    invokeMethod("onDestroy", {
+      "name": stateName,
+    });
+  }
 
   @override
   void dispose() {}

@@ -1,3 +1,4 @@
+import 'package:flib_core/flib_core.dart';
 import 'package:flib_core/src/lifecycle_ext/state_lifecycle_adapter.dart';
 import 'package:flib_lifecycle/flib_lifecycle.dart';
 import 'package:flutter/material.dart';
@@ -41,6 +42,10 @@ abstract class FState<T extends StatefulWidget> extends State<T>
     return context == null ? null : context.findAncestorStateOfType();
   }
 
+  String getStateName() {
+    return toString();
+  }
+
   @override
   FLifecycle getLifecycle() {
     return _stateLifecycleAdapter.getLifecycle();
@@ -65,6 +70,24 @@ abstract class FState<T extends StatefulWidget> extends State<T>
   @override
   void initState() {
     super.initState();
+    getLifecycle().addObserver((event, lifecycle) {
+      switch (event) {
+        case FLifecycleEvent.onCreate:
+          FMethodChannel.stateLifecycle.onCreate(getStateName());
+          break;
+        case FLifecycleEvent.onStart:
+          FMethodChannel.stateLifecycle.onStart(getStateName());
+          break;
+        case FLifecycleEvent.onStop:
+          FMethodChannel.stateLifecycle.onStop(getStateName());
+          break;
+        case FLifecycleEvent.onDestroy:
+          FMethodChannel.stateLifecycle.onDestroy(getStateName());
+          break;
+        default:
+          break;
+      }
+    });
     _stateLifecycleAdapter.initState();
   }
 
