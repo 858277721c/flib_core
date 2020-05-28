@@ -7,9 +7,11 @@ class FTitleBarSize extends Size {
     double width,
     double height,
   }) : super(
-          width ?? double.infinity,
-          height ?? FRes.titleBar().height,
-        );
+    width ?? double.infinity,
+    height ?? FRes
+        .titleBar()
+        .height,
+  );
 }
 
 /// 标题栏容器
@@ -28,9 +30,16 @@ class FTitleBar extends StatelessWidget implements PreferredSizeWidget {
     double elevation,
     this.decoration,
     bool safeTop,
-  })  : this.color = color ?? FRes.titleBar().backgroundColor,
-        this.height = height ?? FRes.titleBar().height,
-        this.elevation = elevation ?? FRes.titleBar().elevation,
+  })
+      : this.color = color ?? FRes
+      .titleBar()
+      .backgroundColor,
+        this.height = height ?? FRes
+            .titleBar()
+            .height,
+        this.elevation = elevation ?? FRes
+            .titleBar()
+            .elevation,
         this.safeTop = safeTop ?? true;
 
   @override
@@ -42,7 +51,9 @@ class FTitleBar extends StatelessWidget implements PreferredSizeWidget {
     );
 
     if (safeTop) {
-      final EdgeInsets padding = MediaQuery.of(context).padding;
+      final EdgeInsets padding = MediaQuery
+          .of(context)
+          .padding;
       if (padding.top > 0) {
         current = Column(
           mainAxisSize: MainAxisSize.min,
@@ -123,12 +134,12 @@ class FSimpleTitleBar extends FTitleBar {
     Decoration decoration,
     bool safeTop,
   }) : super(
-          color: color,
-          height: height,
-          elevation: elevation,
-          decoration: decoration,
-          safeTop: safeTop,
-        );
+    color: color,
+    height: height,
+    elevation: elevation,
+    decoration: decoration,
+    safeTop: safeTop,
+  );
 
   @override
   Widget getChild(BuildContext context) {
@@ -151,8 +162,8 @@ class _SimpleTitleView extends StatelessWidget {
     this.right,
   });
 
-  void _addToList(
-      Widget child, AlignmentGeometry alignment, List<Widget> list) {
+  void _addToList(Widget child, AlignmentGeometry alignment,
+      List<Widget> list) {
     if (child == null) {
       return;
     }
@@ -174,8 +185,12 @@ class _SimpleTitleView extends StatelessWidget {
       widgetLeft = DefaultTextStyle(
         style: TextStyle(
           decoration: TextDecoration.none,
-          fontSize: FRes.titleBar().textSizeSub,
-          color: FRes.titleBar().textColor,
+          fontSize: FRes
+              .titleBar()
+              .textSizeSub,
+          color: FRes
+              .titleBar()
+              .textColor,
         ),
         child: widgetLeft,
       );
@@ -186,8 +201,12 @@ class _SimpleTitleView extends StatelessWidget {
       widgetMiddle = DefaultTextStyle(
         style: TextStyle(
           decoration: TextDecoration.none,
-          fontSize: FRes.titleBar().textSize,
-          color: FRes.titleBar().textColor,
+          fontSize: FRes
+              .titleBar()
+              .textSize,
+          color: FRes
+              .titleBar()
+              .textColor,
         ),
         child: widgetMiddle,
       );
@@ -209,8 +228,12 @@ class _SimpleTitleView extends StatelessWidget {
       widgetRight = DefaultTextStyle(
         style: TextStyle(
           decoration: TextDecoration.none,
-          fontSize: FRes.titleBar().textSizeSub,
-          color: FRes.titleBar().textColor,
+          fontSize: FRes
+              .titleBar()
+              .textSizeSub,
+          color: FRes
+              .titleBar()
+              .textColor,
         ),
         child: widgetRight,
       );
@@ -238,8 +261,7 @@ class FTitleBarItem extends StatelessWidget {
   final EdgeInsetsGeometry margin;
   final VoidCallback onClick;
 
-  FTitleBarItem(
-    this.child, {
+  FTitleBarItem(this.child, {
     Color color,
     double minWidth,
     double maxWidth,
@@ -247,8 +269,11 @@ class FTitleBarItem extends StatelessWidget {
     this.padding = const EdgeInsets.only(left: 5, right: 5),
     this.margin,
     this.onClick,
-  })  : this.color = color ?? Colors.transparent,
-        this.minWidth = minWidth ?? FRes.titleBar().minWidthItem,
+  })
+      : this.color = color ?? Colors.transparent,
+        this.minWidth = minWidth ?? FRes
+            .titleBar()
+            .minWidthItem,
         this.maxWidth = maxWidth ?? double.infinity,
         this.alignment = alignment ?? Alignment.center;
 
@@ -263,8 +288,7 @@ class FTitleBarItem extends StatelessWidget {
 
     current = Container(
       color: color,
-      constraints: BoxConstraints(
-          minWidth: minWidth,
+      constraints: BoxConstraints(minWidth: minWidth,
           maxWidth: maxWidth,
           minHeight: double.infinity,
           maxHeight: double.infinity),
@@ -278,8 +302,8 @@ class FTitleBarItem extends StatelessWidget {
       onTap: onClick == null
           ? null
           : () {
-              onClick();
-            },
+        onClick();
+      },
     );
 
     return current;
@@ -291,8 +315,12 @@ class FTitleBarItem extends StatelessWidget {
       if (imageChild.width == null && imageChild.height == null) {
         return SizedBox(
           child: child,
-          width: FRes.titleBar().widthItemImage,
-          height: FRes.titleBar().heightItemImage,
+          width: FRes
+              .titleBar()
+              .widthItemImage,
+          height: FRes
+              .titleBar()
+              .heightItemImage,
         );
       }
     }
@@ -310,18 +338,28 @@ class FTitleBarItemBack extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget child;
 
-    final String imageBack = FRes.titleBar().imageBack;
+    final String imageBack = FRes
+        .titleBar()
+        .imageBack;
     if (imageBack != null && imageBack.isNotEmpty) {
       child = Image.asset(
         imageBack,
-        width: FRes.titleBar().widthItemImage,
-        height: FRes.titleBar().heightItemImage,
+        width: FRes
+            .titleBar()
+            .widthItemImage,
+        height: FRes
+            .titleBar()
+            .heightItemImage,
       );
     } else {
       child = Icon(
         Icons.arrow_back_ios,
-        size: FRes.titleBar().widthItemImage,
-        color: FRes.titleBar().textColor,
+        size: FRes
+            .titleBar()
+            .widthItemImage,
+        color: FRes
+            .titleBar()
+            .textColor,
       );
     }
 
@@ -329,7 +367,7 @@ class FTitleBarItemBack extends StatelessWidget {
     return FTitleBarItem(
       child,
       onClick: onClick ??
-          () {
+              () {
             Navigator.maybePop(context);
           },
     );

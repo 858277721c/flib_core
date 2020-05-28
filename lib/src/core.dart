@@ -39,9 +39,7 @@ abstract class FState<T extends StatefulWidget> extends State<T>
     if (S == State) {
       throw Exception('Generics "S" are not specified');
     }
-    return context == null
-        ? null
-        : context.ancestorStateOfType(TypeMatcher<S>());
+    return context == null ? null : context.findAncestorStateOfType();
   }
 
   @override
@@ -135,71 +133,7 @@ abstract class FTargetState<T extends StatefulWidget, S extends State>
   void onTargetState(S state);
 }
 
-abstract class FBusiness {
-  FBusiness(FLifecycleOwner lifecycleOwner) {
-    if (lifecycleOwner != null) {
-      final FLifecycle lifecycle = lifecycleOwner.getLifecycle();
-      assert(lifecycle != null);
-      if (lifecycle.getCurrentState() == FLifecycleState.destroyed) {
-        throw Exception('lifecycle is destroyed');
-      }
-
-      lifecycle.addObserver((event, lifecycle) {
-        switch (event) {
-          case FLifecycleEvent.onCreate:
-            onCreate();
-            break;
-          case FLifecycleEvent.onDestroy:
-            onDestroy();
-            break;
-          default:
-            break;
-        }
-      });
-    } else {
-      onCreate();
-    }
-  }
-
-  /// 创建
-  ///
-  /// 1. 如果构造方法的[FLifecycleOwner] == null，则此方法在构造方法里面触发
-  /// 2. 如果构造方法的[FLifecycleOwner] != null，则此方法在[FLifecycleEvent.onCreate]生命周期触发
-  void onCreate();
-
-  /// 销毁
-  void onDestroy() {}
-}
-
-abstract class FBusinessState<T extends StatefulWidget, BS extends FBusiness>
-    extends FState<T> {
-  BS _business;
-
-  /// 返回业务对象
-  BS get business {
-    if (_business == null) {
-      _business = createBusiness();
-      assert(_business != null);
-    }
-    return _business;
-  }
-
-  // 创建一个业务对象返回
-  BS createBusiness();
-
-  @protected
-  @mustCallSuper
-  @override
-  void initState() {
-    super.initState();
-    if (BS == FBusiness) {
-      throw Exception('Generics "BS" are not specified');
-    }
-  }
-}
-
-abstract class FRouteState<T extends StatefulWidget, BS extends FBusiness>
-    extends FBusinessState<T, BS> {
+abstract class FRouteState<T extends StatefulWidget> extends FState<T> {
   @protected
   @mustCallSuper
   @override
