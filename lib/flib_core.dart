@@ -8,6 +8,7 @@ export 'src/border_side.dart';
 export 'src/button.dart';
 export 'src/callback.dart';
 export 'src/core.dart';
+export 'src/method_channel.dart';
 export 'src/model/common_result.dart';
 export 'src/model/page_info.dart';
 export 'src/res.dart';
