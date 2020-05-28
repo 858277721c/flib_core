@@ -7,6 +7,7 @@ typedef dynamic FMethodCallHandler(Map<String, dynamic> arguments);
 
 class FMethodChannel {
   static final FMethodChannel global = _FGlobalMethodChannel();
+  static final FMethodChannel stateLifecycle = _FStateLifecycleChannel();
 
   final MethodChannel _methodChannel;
   final Map<String, FMethodCallHandler> _mapCallHandler = {};
@@ -52,6 +53,13 @@ class FMethodChannel {
 
 class _FGlobalMethodChannel extends FMethodChannel {
   _FGlobalMethodChannel() : super('_global_');
+
+  @override
+  void dispose() {}
+}
+
+class _FStateLifecycleChannel extends FMethodChannel {
+  _FStateLifecycleChannel() : super("state_lifecycle");
 
   @override
   void dispose() {}
