@@ -73,16 +73,16 @@ abstract class FState<T extends StatefulWidget> extends State<T>
     getLifecycle().addObserver((event, lifecycle) {
       switch (event) {
         case FLifecycleEvent.onCreate:
-          FMethodChannel.stateLifecycle.onCreate(getStateName());
+          FStateLifecycleChannel.singleton.onCreate(getStateName());
           break;
         case FLifecycleEvent.onStart:
-          FMethodChannel.stateLifecycle.onStart(getStateName());
+          FStateLifecycleChannel.singleton.onStart(getStateName());
           break;
         case FLifecycleEvent.onStop:
-          FMethodChannel.stateLifecycle.onStop(getStateName());
+          FStateLifecycleChannel.singleton.onStop(getStateName());
           break;
         case FLifecycleEvent.onDestroy:
-          FMethodChannel.stateLifecycle.onDestroy(getStateName());
+          FStateLifecycleChannel.singleton.onDestroy(getStateName());
           break;
         default:
           break;

@@ -1,14 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 typedef dynamic FMethodCallHandler(Map<String, dynamic> arguments);
 
 class FMethodChannel {
   static final FGlobalMethodChannel global = FGlobalMethodChannel._();
-  static final FStateLifecycleChannel stateLifecycle =
-      FStateLifecycleChannel._();
 
   final MethodChannel _methodChannel;
   final Map<String, FMethodCallHandler> _mapCallHandler = {};
@@ -60,6 +59,15 @@ class FGlobalMethodChannel extends FMethodChannel {
 }
 
 class FStateLifecycleChannel extends FMethodChannel {
+  static FStateLifecycleChannel _singleton;
+
+  static FStateLifecycleChannel get singleton {
+    if (_singleton == null) {
+      _singleton = FStateLifecycleChannel._();
+    }
+    return _singleton;
+  }
+
   FStateLifecycleChannel._() : super("stateLifecycle");
 
   void onCreate(String stateName) {
@@ -92,4 +100,36 @@ class FStateLifecycleChannel extends FMethodChannel {
 
   @override
   void dispose() {}
+}
+
+class FRouteMethodChannel extends FMethodChannel {
+  static FRouteMethodChannel _singleton;
+
+  static FRouteMethodChannel get singleton {
+    if (_singleton == null) {
+      _singleton = FRouteMethodChannel._();
+    }
+    return _singleton;
+  }
+
+  FRouteMethodChannel._() : super("route") {
+    listen("setRoute", (arguments) {
+      final String name = arguments["name"];
+      if (name != null) {
+        _routeName = name;
+        if (_callback != null) {
+          _callback();
+        }
+      }
+    });
+  }
+
+  String _routeName = "";
+  VoidCallback _callback;
+
+  String get routeName => _routeName;
+
+  set callback(VoidCallback value) {
+    _callback = value;
+  }
 }
