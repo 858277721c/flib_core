@@ -132,4 +132,7 @@ class FRouteMethodChannel extends FMethodChannel {
   set callback(VoidCallback value) {
     _callback = value;
   }
+
+  @override
+  void dispose() {}
 }
