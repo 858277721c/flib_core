@@ -53,14 +53,14 @@ class FMethodChannel {
 }
 
 class FGlobalMethodChannel extends FMethodChannel {
-  FGlobalMethodChannel._() : super('_global_');
+  FGlobalMethodChannel._() : super('global');
 
   @override
   void dispose() {}
 }
 
 class FStateLifecycleChannel extends FMethodChannel {
-  FStateLifecycleChannel._() : super("state_lifecycle");
+  FStateLifecycleChannel._() : super("stateLifecycle");
 
   void onCreate(String stateName) {
     assert(stateName != null && stateName.isNotEmpty);
