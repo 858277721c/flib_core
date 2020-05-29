@@ -114,13 +114,7 @@ class FRouteMethodChannel extends FMethodChannel {
 
   FRouteMethodChannel._() : super("route") {
     listen("setRoute", (arguments) {
-      final String name = arguments["name"];
-      if (name != null) {
-        _routeName = name;
-        if (_callback != null) {
-          _callback();
-        }
-      }
+      routeName = arguments["name"];
     });
   }
 
@@ -128,6 +122,16 @@ class FRouteMethodChannel extends FMethodChannel {
   VoidCallback _callback;
 
   String get routeName => _routeName;
+
+  set routeName(String value) {
+    if (value == null || value.isEmpty) value = "/";
+
+    _routeName = value;
+
+    if (_callback != null) {
+      _callback();
+    }
+  }
 
   set callback(VoidCallback value) {
     _callback = value;
