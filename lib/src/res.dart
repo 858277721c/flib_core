@@ -20,7 +20,11 @@ class FRes {
     return _instance;
   }
 
-  void init({FResColors colors, FResDimens dimens, FResTitleBar titleBar}) {
+  void init({
+    FResColors colors,
+    FResDimens dimens,
+    FResTitleBar titleBar,
+  }) {
     if (colors != null) {
       _colors = colors;
     }
@@ -52,6 +56,12 @@ class FResColors {
   /// 主题色不可用状态的颜色
   final Color mainColorDisabled;
 
+  /// 主题色，渐变开始颜色
+  final Color mainColorStart;
+
+  /// 主题色，渐变结束颜色
+  final Color mainColorEnd;
+
   /// 页面背景色
   final Color bgPage;
 
@@ -82,6 +92,8 @@ class FResColors {
   FResColors({
     this.mainColor = Colors.blue,
     Color mainColorDisabled,
+    Color mainColorStart,
+    Color mainColorEnd,
     this.bgPage = const Color(0xFFF7F7F7),
     this.textGrayL = const Color(0xFF333333),
     this.textGrayM = const Color(0xFF666666),
@@ -94,6 +106,8 @@ class FResColors {
   })  : assert(mainColor != null),
         this.mainColorDisabled =
             mainColorDisabled ?? mainColor.withOpacity(0.4),
+        this.mainColorStart = mainColorStart ?? mainColor,
+        this.mainColorEnd = mainColorStart ?? mainColor,
         this.textTabNormal = textTabNormal ?? textGrayS,
         this.textTabSelected = textTabSelected ?? mainColor;
 }
