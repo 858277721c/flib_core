@@ -70,24 +70,6 @@ abstract class FState<T extends StatefulWidget> extends State<T>
   @override
   void initState() {
     super.initState();
-    getLifecycle().addObserver((event, lifecycle) {
-      switch (event) {
-        case FLifecycleEvent.onCreate:
-          FStateLifecycleChannel.singleton.onCreate(getStateName());
-          break;
-        case FLifecycleEvent.onStart:
-          FStateLifecycleChannel.singleton.onStart(getStateName());
-          break;
-        case FLifecycleEvent.onStop:
-          FStateLifecycleChannel.singleton.onStop(getStateName());
-          break;
-        case FLifecycleEvent.onDestroy:
-          FStateLifecycleChannel.singleton.onDestroy(getStateName());
-          break;
-        default:
-          break;
-      }
-    });
     _stateLifecycleAdapter.initState();
   }
 
