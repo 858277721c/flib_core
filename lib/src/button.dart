@@ -59,7 +59,7 @@ class FButton {
       textColor: textColor,
       disabledTextColor: disabledTextColor,
       color: color,
-      disabledColor: disabledTextColor,
+      disabledColor: disabledColor,
       focusColor: focusColor,
       hoverColor: hoverColor,
       highlightColor: highlightColor,
