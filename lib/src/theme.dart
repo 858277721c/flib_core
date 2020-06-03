@@ -15,6 +15,7 @@ class FTheme {
       buttonTheme: buttonThemeDataPrimary(),
       appBarTheme: appBarTheme(),
       dialogTheme: dialogTheme(),
+      cursorColor: mainColor,
     );
   }
 
