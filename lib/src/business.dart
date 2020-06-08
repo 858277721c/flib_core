@@ -1,10 +1,8 @@
 import 'package:flib_lifecycle/flib_lifecycle.dart';
 
 abstract class FBusiness {
-  FBusiness(FLifecycleOwner lifecycleOwner) {
-    if (lifecycleOwner != null) {
-      final FLifecycle lifecycle = lifecycleOwner.getLifecycle();
-      assert(lifecycle != null);
+  FBusiness(FLifecycle lifecycle) {
+    if (lifecycle != null) {
       if (lifecycle.getCurrentState() == FLifecycleState.destroyed) {
         throw Exception('lifecycle is destroyed');
       }
@@ -28,8 +26,8 @@ abstract class FBusiness {
 
   /// 创建
   ///
-  /// 1. 如果构造方法的[FLifecycleOwner] == null，则此方法在构造方法里面触发
-  /// 2. 如果构造方法的[FLifecycleOwner] != null，则此方法在[FLifecycleEvent.onCreate]生命周期触发
+  /// 1. 如果构造方法的[lifecycle] == null，则此方法在构造方法里面触发
+  /// 2. 如果构造方法的[lifecycle] != null，则此方法在[FLifecycleEvent.onCreate]生命周期触发
   void onCreate();
 
   /// 销毁
